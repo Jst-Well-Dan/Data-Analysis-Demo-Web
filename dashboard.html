@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知微探界 - 新一代企业 AI 经营分析大脑</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* zwtj-brand-skill Colors */
+            --brand-navy: #1C3461;
+            --brand-blue: #2B4E9E;
+            --brand-mid: #3D6BC4;
+            --brand-light: #6B96D8;
+            --brand-pale: #C8DAEF;
+            --brand-tint: #EBF2FB;
+            --n900: #1A2233;
+            --n700: #3D4E68;
+            --n500: #6B7A96;
+            --n300: #B8C2D4;
+            --n100: #EEF1F6;
+            --n50: #F7F9FC;
+            --white: #FFFFFF;
+            --success: #1E7A4E;
+            --warning: #A85C00;
+            --danger: #B02A2A;
+
+            --font-heading: 'Noto Serif SC', 'STSong', serif;
+            --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--n50);
+            color: var(--n900);
+            overflow-y: scroll;
+        }
+
+        .font-serif {
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(200, 218, 239, 0.4);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 24px -6px rgba(28, 52, 97, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px -8px rgba(28, 52, 97, 0.12);
+            border-color: rgba(200, 218, 239, 0.8);
+        }
+
+        .glass-img-container {
+            border: 1px solid rgba(200, 218, 239, 0.4);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -10px rgba(28, 52, 97, 0.1);
+        }
+
+        /* Tabs Logic */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Markdown Report Styles */
+        .report-content h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brand-navy);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--n100);
+            padding-bottom: 0.5rem;
+        }
+
+        .report-content h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--n900);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .report-content p,
+        .report-content li {
+            margin-bottom: 0.75rem;
+            color: var(--n700);
+            line-height: 1.8;
+        }
+
+        .report-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+        }
+
+        .report-table th {
+            background-color: var(--brand-navy);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .report-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--n100);
+            color: var(--n700);
+        }
+
+        .report-table tr:nth-child(even) td {
+            background-color: var(--brand-tint);
+        }
+
+        .callout {
+            background-color: var(--brand-tint);
+            border-left: 4px solid var(--brand-blue);
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .callout-warning {
+            background-color: #FEF3E2;
+            border-left: 4px solid var(--warning);
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        strong {
+            color: var(--n900);
+            font-weight: 700;
+        }
+
+        .highlight-red {
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .highlight-green {
+            color: var(--success);
+            font-weight: 700;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'sans-serif'],
+                        serif: ['Noto Serif SC', 'STSong', 'serif'],
+                        mono: ['JetBrains Mono', 'Consolas', 'monospace']
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#1C3461',
+                            blue: '#2B4E9E',
+                            mid: '#3D6BC4',
+                            light: '#6B96D8',
+                            pale: '#C8DAEF',
+                            tint: '#EBF2FB'
+                        },
+                        slate: {
+                            900: '#1A2233',
+                            800: '#2A364E',
+                            700: '#3D4E68',
+                            600: '#546682',
+                            500: '#6B7A96',
+                            400: '#92A0B7',
+                            300: '#B8C2D4',
+                            200: '#D5DFED',
+                            100: '#EEF1F6',
+                            50: '#F7F9FC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="pt-16">
+
+    <!-- Top Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div
+                    class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-blue to-brand-light flex items-center justify-center text-white shadow-md shadow-brand-blue/30 transition-transform group-hover:scale-105">
+                    <i data-lucide="compass" class="w-5 h-5"></i>
+                </div>
+                <span
+                    class="font-bold text-lg tracking-tight text-brand-navy font-serif transition-colors group-hover:text-brand-blue">知微探界</span>
+                <span
+                    class="text-sm text-slate-400 font-sans hidden md:inline-block border-l border-slate-200 pl-3 ml-1">新一代企业
+                    AI 经营分析大脑</span>
+            </div>
+
+            <!-- Central Tabs -->
+            <div
+                class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center bg-slate-100 p-1 rounded-lg border border-slate-200">
+                <a href="index.html" id="btn-core"
+                    class="tab-btn px-6 py-1.5 rounded-md text-sm font-medium transition-all text-slate-500 hover:text-brand-blue">核心能力</a>
+                <a href="dashboard.html" id="btn-dashboard"
+                    class="tab-btn active px-6 py-1.5 rounded-md text-sm font-medium transition-all bg-white shadow-sm text-brand-blue">经营看板</a>
+                <a href="report.html" id="btn-report"
+                    class="tab-btn px-6 py-1.5 rounded-md text-sm font-medium transition-all text-slate-500 hover:text-brand-blue">战略报告</a>
+            </div>
+            <!-- Actions (Placeholder for future actions if needed) -->
+            <div class="flex items-center gap-4">
+                <!-- Removed mock buttons per user request -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- TAB 2: 经营看板 (Interactive Dashboard) -->
+    <div id="tab-dashboard" class="tab-content active pt-4">
+        <div class="max-w-[1400px] mx-auto px-4 pb-6">
+            <div
+                class="bg-brand-tint text-brand-navy px-4 py-2 rounded-t-lg text-sm flex items-center gap-2 font-medium border border-brand-pale border-b-0">
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                自动生成的交互式经营看板
+            </div>
+            <div class="bg-white rounded-b-lg shadow-lg border border-slate-200 overflow-x-auto iframe-container h-[calc(100vh-140px)]"
+                style="-webkit-overflow-scrolling: touch;">
+                <!-- Using an iframe to render the dashboard file -->
+                <iframe src="superstore_dashboard.html" title="Superstore Dashboard"
+                    class="w-full h-full border-0 min-w-[1200px]"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Footer & CTA -->
+    <footer class="border-t border-slate-200/60 bg-white/50 backdrop-blur-sm mt-auto relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 pt-16 pb-8">
+            <!-- CTA Card -->
+            <div
+                class="bg-gradient-to-br from-brand-tint to-white border border-brand-pale rounded-2xl p-8 md:p-10 shadow-lg shadow-brand-pale/20 mb-16 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+                <!-- Decorative background elements -->
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-light/10 rounded-full blur-3xl"></div>
+                <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-brand-blue/5 rounded-full blur-2xl"></div>
+
+                <div class="relative z-10 text-center md:text-left">
+                    <h3 class="text-2xl font-serif font-bold text-brand-navy mb-2">寻找属于您的数据破局方案？</h3>
+                    <p class="text-slate-600">联系我们的数据策略专家，获取为您企业量身定制的 AI 智能分析演示。</p>
+                </div>
+
+                <div class="relative z-10 shrink-0">
+                    <a href="mailto:business@zwtj.site"
+                        class="group flex items-center justify-center gap-3 bg-brand-blue text-white px-8 py-4 rounded-xl font-medium shadow-[0_8px_30px_rgb(43,78,158,0.2)] hover:bg-brand-navy hover:shadow-[0_8px_30px_rgb(28,52,97,0.3)] hover:-translate-y-1 transition-all duration-300 border border-brand-light/30">
+                        <div class="bg-white/20 p-2 rounded-lg group-hover:bg-white/30 transition-colors">
+                            <i data-lucide="mail" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="text-lg tracking-wide">business@zwtj.site</span>
+                        <i data-lucide="arrow-right"
+                            class="w-4 h-4 ml-1 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-slate-200/60 pt-8">
+                <div class="flex items-center gap-2">
+                    <div
+                        class="w-6 h-6 rounded bg-gradient-to-br from-brand-blue to-brand-light flex items-center justify-center text-white shadow-sm">
+                        <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <span class="font-bold text-slate-800 font-serif text-sm">知微探界</span>
+                    <span
+                        class="text-slate-400 text-xs ml-2 border-l border-slate-300 pl-2 hidden sm:inline-block">新一代企业
+                        AI 经营分析大脑</span>
+                </div>
+                <div class="text-sm text-slate-500">
+                    &copy; 2026 北京知微探界科技有限公司 保留所有权利
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Navigation Bar (Bottom App Bar) -->
+    <div
+        class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 backdrop-blur-xl border-t border-slate-200/60 pb-safe pb-2 px-6 flex items-center justify-around shadow-[0_-4px_20px_rgba(28,52,97,0.06)] overflow-hidden">
+        <a href="index.html" id="mob-btn-core"
+            class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-slate-400 hover:text-slate-600 group">
+            <i data-lucide="layers" class="w-5 h-5 transition-transform group-active:scale-90"></i>
+            <span class="text-[10px] font-medium tracking-wide">核心能力</span>
+            <div
+                class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-0">
+            </div>
+        </a>
+
+        <a href="dashboard.html" id="mob-btn-dashboard"
+            class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-brand-blue group">
+            <i data-lucide="layout-dashboard" class="w-5 h-5 transition-transform group-active:scale-90"></i>
+            <span class="text-[10px] font-medium tracking-wide">经营看板</span>
+            <div
+                class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-100">
+            </div>
+        </a>
+
+        <a href="report.html" id="mob-btn-report"
+            class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-slate-400 hover:text-slate-600 group">
+            <i data-lucide="file-text" class="w-5 h-5 transition-transform group-active:scale-90"></i>
+            <span class="text-[10px] font-medium tracking-wide">战略报告</span>
+            <div
+                class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-0">
+            </div>
+        </a>
+
+    </div>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

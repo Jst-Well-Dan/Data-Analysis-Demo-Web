@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>知微探界 | 业务风险监测与经营决策系统</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
@@ -53,8 +54,8 @@
       background: var(--background);
       color: var(--foreground);
       font-family: var(--font-body);
-      height: 100%;
-      width: 100%;
+      height: 100vh;
+      width: 100vw;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -63,15 +64,9 @@
       gap: 1.5vh;
     }
 
+    /* Remove header style as it is redundant */
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5vh 1.5vw;
-      background: var(--brand-navy);
-      color: #FFFFFF;
-      border-radius: var(--radius);
-      margin-bottom: 1vh;
+      display: none;
     }
 
     .logo-container {
@@ -137,9 +132,10 @@
       flex: 1;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 1fr);
       gap: 1vw;
       min-height: 0;
+      /* Responsive grid rows */
+      grid-template-rows: repeat(2, calc(50% - 0.5vw));
     }
 
     .chart-card {
@@ -150,6 +146,11 @@
       display: flex;
       flex-direction: column;
       min-height: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .chart-card.col-span-2 {
+      grid-column: span 2;
     }
 
     .chart-title {
@@ -166,6 +167,8 @@
       flex: 1;
       position: relative;
       min-height: 0;
+      width: 100%;
+      height: 100%;
     }
 
     .bar-list {
@@ -197,19 +200,11 @@
       height: 100%;
       transition: width 1s;
     }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      font-size: 10px;
-      color: var(--muted-foreground);
-      padding-top: 0.5vh;
-    }
   </style>
 </head>
 
 <body>
-
+  <!-- Header removed per user request for redundancy -->
 
   <div class="kpi-grid">
     <div class="kpi-card">
@@ -235,33 +230,44 @@
   </div>
 
   <main class="charts-main-grid">
+    <!-- Top Row (4 cards) -->
+    <div class="chart-card col-span-2">
+      <div class="chart-title">地区架构与资金流向</div>
+      <div
+        style="display: flex; justify-content: space-around; font-size: 10px; color: var(--n500); margin-bottom: 4px; border-bottom: 1px dashed var(--border); padding-bottom: 2px;">
+        <span>地区 (Region)</span>
+        <span>客户细分 (Segment)</span>
+        <span>主品类 (Category)</span>
+      </div>
+      <div class="canvas-wrapper" id="sankeyChart"></div>
+    </div>
+    <div class="chart-card col-span-2">
+      <div class="chart-title">层级品类诊断</div>
+      <!-- New Category Proportion Bar -->
+      <div id="cat-proportion-bar"
+        style="display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin: 0 10px 15px 10px; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 2px 5px rgba(0,0,0,0.03);">
+        <!-- Dyanmic segments injected via JS -->
+      </div>
+      <div class="canvas-wrapper" id="treeChart"></div>
+    </div>
+
+    <!-- Bottom Row (4 cards) -->
     <div class="chart-card">
-      <div class="chart-title">地区业绩分析</div>
+      <div class="chart-title">地区基本业绩</div>
       <div class="canvas-wrapper"><canvas id="regionChart"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">核心品类构成</div>
-      <div class="canvas-wrapper"><canvas id="categoryDonut"></canvas></div>
+      <div class="chart-title">子品类折扣与盈利策略分析</div>
+      <!-- Visual Legend for Scatter -->
+      <div
+        style="display: flex; gap: 15px; font-size: 10px; color: var(--n500); margin-bottom: 5px; padding-left: 10px;">
+        <div class="flex items-center"><span class="w-2 h-2 rounded-full bg-slate-400 mr-1"></span>大小: 销售额规模</div>
+      </div>
+      <div class="canvas-wrapper" id="scatterChart"></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">子品类盈亏 Top 10</div>
-      <div class="canvas-wrapper"><canvas id="subcatChart"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">客户细分分布</div>
-      <div class="canvas-wrapper"><canvas id="segmentChart"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">各州/省销售概览</div>
-      <div class="canvas-wrapper"><canvas id="stateChart"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">物流时效统计</div>
+      <div class="chart-title">物流时效与分布</div>
       <div class="canvas-wrapper"><canvas id="shipChart"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">折扣率与平均利润</div>
-      <div class="canvas-wrapper"><canvas id="discountChart"></canvas></div>
     </div>
     <div class="chart-card">
       <div class="chart-title">利润预警关注</div>
@@ -305,12 +311,12 @@
     </div>
   </main>
 
-
+  <!-- Footer removed per user request for redundancy -->
 
   <script>
     lucide.createIcons();
 
-    const DATA = { "kpis": { "total_sales": 2297200.86, "total_profit": 286397.02, "total_qty": 37873, "total_orders": 9994, "profit_margin": 12.47 }, "region": { "labels": ["\u897f\u90e8", "\u4e1c\u90e8", "\u4e2d\u90e8", "\u5357\u90e8"], "sales": [725457.82, 678781.24, 501239.89, 391721.91], "profit": [108418.45, 91522.78, 39706.36, 46749.43] }, "category": { "labels": ["\u6280\u672f", "\u5bb6\u5177", "\u529e\u516c\u7528\u54c1"], "sales": [836154.03, 741999.8, 719047.03], "profit": [145454.95, 18451.27, 122490.8] }, "subcat": { "labels": ["\u590d\u5370\u673a", "\u7535\u8bdd", "\u9644\u4ef6", "\u7eb8\u5f20", "\u88c5\u8ba2", "\u6905\u5b50", "\u50a8\u7269", "\u5668\u5177", "\u9648\u5217", "\u4fe1\u5c01"], "sales": [149528.03, 330007.05, 167380.32, 78479.21, 203412.73, 328449.1, 223843.61, 107532.16, 91705.16, 16476.4], "profit": [55617.82, 44515.73, 41936.64, 34053.57, 30221.76, 26590.17, 21278.83, 18138.01, 13059.14, 6964.18] }, "segment": { "labels": ["\u6d88\u8d39\u8005", "\u4f01\u4e1a", "\u5bb6\u5ead\u529e\u516c\u5ba4"], "sales": [1161401.34, 706146.37, 429653.15], "profit": [134119.21, 91979.13, 60298.68] }, "ship": { "labels": ["\u6807\u51c6\u7ea7\u8d27\u8fd0", "\u4e8c\u7ea7\u8d27\u8fd0", "\u4e00\u7ea7\u8d27\u8fd0", "\u5f53\u65e5\u8fbe"], "counts": [5968, 1945, 1538, 543] }, "discount": { "labels": ["1-10%", "0%", "11-20%", "21-30%", "31%+"], "counts": [94, 4798, 3709, 227, 1166], "avg_profit": [96.06, 66.9, 24.74, -45.68, -107.21] }, "state": { "labels": ["\u52a0\u5229\u798f\u5c3c\u4e9a\u5dde", "\u7ebd\u7ea6\u5dde", "\u5fb7\u514b\u8428\u65af\u5dde", "\u534e\u76db\u987f\u5dde", "\u5bbe\u5915\u6cd5\u5c3c\u4e9a\u5dde", "\u4f5b\u7f57\u91cc\u8fbe\u5dde", "\u4f0a\u5229\u8bfa\u4f0a\u5dde", "\u4fc4\u4ea5\u4fc4\u5dde", "\u5bc6\u6b47\u6839\u5dde", "\u5f17\u5409\u5c3c\u4e9a\u5dde"], "sales": [457687.63, 310876.27, 170188.05, 138641.27, 116511.91, 89473.71, 80166.1, 78258.14, 76269.61, 70636.72], "profit": [76381.39, 74038.55, -25729.36, 33402.65, -15559.96, -3399.3, -12607.89, -16971.38, 24463.19, 18597.95] } };
+    const DATA = { "kpis": { "total_sales": 2297200.86, "total_profit": 286397.02, "total_qty": 37873, "total_orders": 9994, "profit_margin": 12.47 }, "region": { "labels": ["\u897f\u90e8", "\u4e1c\u90e8", "\u4e2d\u90e8", "\u5357\u90e8"], "sales": [725457.82, 678781.24, 501239.89, 391721.91], "profit": [108418.45, 91522.78, 39706.36, 46749.43] }, "category": { "labels": ["\u7535\u5b50\u4ea7\u54c1", "\u5bb6\u5177", "\u529e\u516c\u7528\u54c1"], "sales": [836154.03, 741999.8, 719047.03], "profit": [145454.95, 18451.27, 122490.8] }, "subcat": { "labels": ["\u590d\u5370\u673a", "\u7535\u8bdd", "\u9644\u4ef6", "\u7eb8\u5f20", "\u88c5\u8ba2", "\u6905\u5b50", "\u50a8\u7269", "\u5668\u5177", "\u9648\u5217", "\u4fe1\u5c01"], "sales": [149528.03, 330007.05, 167380.32, 78479.21, 203412.73, 328449.1, 223843.61, 107532.16, 91705.16, 16476.4], "profit": [55617.82, 44515.73, 41936.64, 34053.57, 30221.76, 26590.17, 21278.83, 18138.01, 13059.14, 6964.18] }, "segment": { "labels": ["\u6d88\u8d39\u8005", "\u4f01\u4e1a", "\u5bb6\u5ead\u529e\u516c\u5ba4"], "sales": [1161401.34, 706146.37, 429653.15], "profit": [134119.21, 91979.13, 60298.68] }, "ship": { "labels": ["\u6807\u51c6\u7ea7\u8d27\u8fd0", "\u4e8c\u7ea7\u8d27\u8fd0", "\u4e00\u7ea7\u8d27\u8fd0", "\u5f53\u65e5\u8fbe"], "counts": [5968, 1945, 1538, 543] }, "discount": { "labels": ["1-10%", "0%", "11-20%", "21-30%", "31%+"], "counts": [94, 4798, 3709, 227, 1166], "avg_profit": [96.06, 66.9, 24.74, -45.68, -107.21] }, "state": { "labels": ["\u52a0\u5229\u798f\u5c3c\u4e9a\u5dde", "\u7ebd\u7ea6\u5dde", "\u5fb7\u514b\u8428\u65af\u5dde", "\u534e\u76db\u987f\u5dde", "\u5bbe\u5915\u6cd5\u5c3c\u4e9a\u5dde", "\u4f5b\u7f57\u91cc\u8fbe\u5dde", "\u4f0a\u5229\u8bfa\u4f0a\u5dde", "\u4fc4\u4ea5\u4fc4\u5dde", "\u5bc6\u6b47\u6839\u5dde", "\u5f17\u5409\u5c3c\u4e9a\u5dde"], "sales": [457687.63, 310876.27, 170188.05, 138641.27, 116511.91, 89473.71, 80166.1, 78258.14, 76269.61, 70636.72], "profit": [76381.39, 74038.55, -25729.36, 33402.65, -15559.96, -3399.3, -12607.89, -16971.38, 24463.19, 18597.95] }, "echarts": { "sankey": { "nodes": [{ "name": "\u4e2d\u90e8" }, { "name": "\u5bb6\u5177" }, { "name": "\u5bb6\u5ead\u529e\u516c\u5ba4" }, { "name": "\u5357\u90e8" }, { "name": "\u4e1c\u90e8" }, { "name": "\u4f01\u4e1a" }, { "name": "\u897f\u90e8" }, { "name": "\u7535\u5b50\u4ea7\u54c1" }, { "name": "\u529e\u516c\u7528\u54c1" }, { "name": "\u6d88\u8d39\u8005" }], "links": [{ "source": "\u4e1c\u90e8", "target": "\u4f01\u4e1a", "value": 200409.347 }, { "source": "\u4e1c\u90e8", "target": "\u5bb6\u5ead\u529e\u516c\u5ba4", "value": 127463.726 }, { "source": "\u4e1c\u90e8", "target": "\u6d88\u8d39\u8005", "value": 350908.167 }, { "source": "\u4e2d\u90e8", "target": "\u4f01\u4e1a", "value": 157995.8128 }, { "source": "\u4e2d\u90e8", "target": "\u5bb6\u5ead\u529e\u516c\u5ba4", "value": 91212.644 }, { "source": "\u4e2d\u90e8", "target": "\u6d88\u8d39\u8005", "value": 252031.434 }, { "source": "\u5357\u90e8", "target": "\u4f01\u4e1a", "value": 121885.9325 }, { "source": "\u5357\u90e8", "target": "\u5bb6\u5ead\u529e\u516c\u5ba4", "value": 74255.0015 }, { "source": "\u5357\u90e8", "target": "\u6d88\u8d39\u8005", "value": 195580.971 }, { "source": "\u897f\u90e8", "target": "\u4f01\u4e1a", "value": 225855.2745 }, { "source": "\u897f\u90e8", "target": "\u5bb6\u5ead\u529e\u516c\u5ba4", "value": 136721.777 }, { "source": "\u897f\u90e8", "target": "\u6d88\u8d39\u8005", "value": 362880.773 }, { "source": "\u4f01\u4e1a", "target": "\u529e\u516c\u7528\u54c1", "value": 230676.462 }, { "source": "\u4f01\u4e1a", "target": "\u5bb6\u5177", "value": 229019.7858 }, { "source": "\u4f01\u4e1a", "target": "\u7535\u5b50\u4ea7\u54c1", "value": 246450.119 }, { "source": "\u5bb6\u5ead\u529e\u516c\u5ba4", "target": "\u529e\u516c\u7528\u54c1", "value": 124418.434 }, { "source": "\u5bb6\u5ead\u529e\u516c\u5ba4", "target": "\u5bb6\u5177", "value": 121930.6975 }, { "source": "\u5bb6\u5ead\u529e\u516c\u5ba4", "target": "\u7535\u5b50\u4ea7\u54c1", "value": 183304.017 }, { "source": "\u6d88\u8d39\u8005", "target": "\u529e\u516c\u7528\u54c1", "value": 363952.136 }, { "source": "\u6d88\u8d39\u8005", "target": "\u5bb6\u5177", "value": 391049.312 }, { "source": "\u6d88\u8d39\u8005", "target": "\u7535\u5b50\u4ea7\u54c1", "value": 406399.897 }] }, "scatter": [[0.211140350877193, -0.030227682032054524, 114879.9963, "\u4e66\u67b6"], [0.08031496062992127, 0.42267581842200747, 16476.402, "\u4fe1\u5c01"], [0.07470449172576832, 0.09506113035847778, 223843.608, "\u50a8\u7269"], [0.1665236051502146, 0.16867516872463859, 107532.16100000001, "\u5668\u5177"], [0.16176470588235295, 0.3719558460042575, 149528.03, "\u590d\u5370\u673a"], [0.3060869565217391, 0.01788618360909618, 189238.631, "\u673a\u68b0"], [0.06868131868131869, 0.4441867222283089, 12486.312, "\u6807\u7b7e"], [0.2612852664576803, -0.08564460433923848, 206965.532, "\u684c\u5b50"], [0.17017828200972449, 0.08095673289142763, 328449.103, "\u6905\u5b50"], [0.0768421052631579, -0.025476952272184723, 46673.538, "\u7528\u54c1"], [0.15455568053993252, 0.1348932698874976, 330007.054, "\u7535\u8bdd"], [0.08202764976958525, 0.3139650429193064, 3024.28, "\u7d27\u56fa\u4ef6"], [0.07489051094890511, 0.43391837195702515, 78479.206, "\u7eb8\u5f20"], [0.07487437185929649, 0.24071083254740847, 27118.792, "\u827a\u672f"], [0.3722915298752462, 0.1485736062550224, 203412.733, "\u88c5\u8ba2"], [0.07845161290322582, 0.2505469950176579, 167380.318, "\u9644\u4ef6"], [0.13834900731452457, 0.14240357936658832, 91705.164, "\u9648\u5217"]], "treemap": [{ "name": "\u529e\u516c\u7528\u54c1", "value": 719047.032, "children": [{ "name": "\u4fe1\u5c01", "value": 16476.402, "profit": 6964.1767 }, { "name": "\u50a8\u7269", "value": 223843.608, "profit": 21278.8264 }, { "name": "\u5668\u5177", "value": 107532.161, "profit": 18138.005400000002 }, { "name": "\u6807\u7b7e", "value": 12486.312, "profit": 5546.254 }, { "name": "\u7528\u54c1", "value": 46673.53799999999, "profit": -1189.0994999999998 }, { "name": "\u7d27\u56fa\u4ef6", "value": 3024.2799999999997, "profit": 949.5182 }, { "name": "\u7eb8\u5f20", "value": 78479.206, "profit": 34053.5693 }, { "name": "\u827a\u672f", "value": 27118.792, "profit": 6527.787 }, { "name": "\u88c5\u8ba2", "value": 203412.733, "profit": 30221.7633 }] }, { "name": "\u5bb6\u5177", "value": 741999.7953, "children": [{ "name": "\u4e66\u67b6", "value": 114879.9963, "profit": -3472.5559999999996 }, { "name": "\u684c\u5b50", "value": 206965.532, "profit": -17725.4811 }, { "name": "\u6905\u5b50", "value": 328449.103, "profit": 26590.1663 }, { "name": "\u9648\u5217", "value": 91705.16399999999, "profit": 13059.143600000001 }] }, { "name": "\u7535\u5b50\u4ea7\u54c1", "value": 836154.033, "children": [{ "name": "\u590d\u5370\u673a", "value": 149528.02999999997, "profit": 55617.82490000001 }, { "name": "\u673a\u68b0", "value": 189238.63100000002, "profit": 3384.7569 }, { "name": "\u7535\u8bdd", "value": 330007.054, "profit": 44515.730599999995 }, { "name": "\u9644\u4ef6", "value": 167380.31800000003, "profit": 41936.6357 }] }], "cat_shares": [{ "name": "\u7535\u5b50\u4ea7\u54c1", "share": 36.4 }, { "name": "\u5bb6\u5177", "share": 32.3 }, { "name": "\u529e\u516c\u7528\u54c1", "share": 31.3 }] } };
     const BRAND_COLORS = ['#2B4E9E', '#1E7A4E', '#B45309', '#6B96D8', '#5E9E76', '#D4853A', '#9B5EBF', '#E05252'];
     const ACCENT = BRAND_COLORS[0];
     const SUCCESS = '#1E7A4E';
@@ -348,6 +354,23 @@
     Chart.defaults.font.family = "'Noto Sans SC', sans-serif";
     Chart.defaults.color = TEXT;
 
+    // Resize Observers
+    const eChartsList = [];
+    window.addEventListener('resize', () => {
+      eChartsList.forEach(c => c.resize());
+    });
+
+    function initTooltip() {
+      return {
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(10px)',
+        borderColor: '#C8DAEF',
+        textStyle: { color: '#1A2233', fontFamily: 'var(--font-body)' },
+        padding: [10, 15],
+        borderRadius: 6,
+      };
+    }
+
     new Chart(document.getElementById('regionChart'), {
       type: 'bar',
       data: {
@@ -364,82 +387,133 @@
       }
     });
 
-    new Chart(document.getElementById('categoryDonut'), {
-      type: 'doughnut',
-      data: {
-        labels: DATA.category.labels,
-        datasets: [{
-          data: DATA.category.sales,
-          backgroundColor: BRAND_COLORS,
-          borderWidth: 2,
-          borderColor: '#ffffff',
-          hoverOffset: 15
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        cutout: '75%',
-        plugins: {
-          legend: { position: 'bottom', labels: { padding: 20, font: { size: 11 } } },
-          tooltip: ttBase
+    // --- ECharts ---
+    // 0. Build Category Proportion Bar (Visual Index)
+    const barContainer = document.getElementById('cat-proportion-bar');
+    DATA.echarts.cat_shares.forEach((cat, i) => {
+      const segment = document.createElement('div');
+      segment.style.width = cat.share + '%';
+      segment.style.backgroundColor = BRAND_COLORS[i % BRAND_COLORS.length];
+      segment.style.color = '#fff';
+      segment.style.display = 'flex';
+      segment.style.alignItems = 'center';
+      segment.style.justifyContent = 'center';
+      segment.style.fontSize = '10px';
+      segment.style.fontWeight = '600';
+      segment.style.textShadow = '0 1px 2px rgba(0,0,0,0.2)';
+      segment.innerHTML = `<span>${cat.name} (${cat.share}%)</span>`;
+      barContainer.appendChild(segment);
+    });
+
+    // 1. Sankey 
+    const sankeyChart = echarts.init(document.getElementById('sankeyChart'));
+    eChartsList.push(sankeyChart);
+    sankeyChart.setOption({
+      color: BRAND_COLORS,
+      tooltip: initTooltip(),
+      series: [{
+        type: 'sankey',
+        layout: 'none',
+        emphasis: { focus: 'adjacency' },
+        data: DATA.echarts.sankey.nodes,
+        links: DATA.echarts.sankey.links,
+        itemStyle: { borderRadius: 4, borderWidth: 1, borderColor: '#fff' },
+        lineStyle: { color: 'source', curveness: 0.5, opacity: 0.3 },
+        label: { color: '#1A2233', fontFamily: 'var(--font-body)', fontSize: 11 }
+      }]
+    });
+
+    // 2. Treemap
+    const treeChart = echarts.init(document.getElementById('treeChart'));
+    eChartsList.push(treeChart);
+    treeChart.setOption({
+      tooltip: {
+        ...initTooltip(),
+        formatter: function (info) {
+          let profit = info.data.profit || 0;
+          let sales = info.data.value || 0;
+          return `<div style="font-weight:600;margin-bottom:4px">` + info.name + `</div>` +
+            `销售额: $` + sales.toLocaleString() + `<br>` +
+            `利润: <span style="color:` + (profit >= 0 ? SUCCESS : DANGER) + `">$` + profit.toLocaleString() + `</span>`;
         }
-      }
-    });
-
-    new Chart(document.getElementById('subcatChart'), {
-      type: 'bar',
-      data: {
-        labels: DATA.subcat.labels,
-        datasets: [
-          { label: '销售额', data: DATA.subcat.sales, backgroundColor: ACCENT + 'cc', borderRadius: 4 },
-          { label: '利润', data: DATA.subcat.profit, backgroundColor: SUCCESS + 'cc', borderRadius: 4 }
-        ]
       },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { tooltip: ttBase },
-        scales: commonScales
-      }
-    });
-
-    new Chart(document.getElementById('segmentChart'), {
-      type: 'polarArea',
-      data: {
-        labels: DATA.segment.labels,
-        datasets: [{
-          data: DATA.segment.sales,
-          backgroundColor: BRAND_COLORS.map(c => c + 'cc'),
-          borderColor: '#ffffff',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: {
-          legend: { position: 'bottom', labels: { padding: 15, font: { size: 11 } } },
-          tooltip: ttBase
+      series: [{
+        type: 'treemap',
+        data: DATA.echarts.treemap,
+        left: 10,
+        right: 10,
+        top: 0,
+        bottom: 10,
+        roam: false,
+        nodeClick: 'link',
+        breadcrumb: { show: false },
+        itemStyle: { borderColor: '#fff', borderWidth: 2, gapWidth: 2 },
+        label: {
+          show: true,
+          formatter: '{b}',
+          fontSize: 11,
+          fontFamily: 'var(--font-body)',
+          fontWeight: 500
         },
-        scales: { r: { ticks: { display: false }, grid: { color: GRID } } }
-      }
+        levels: [
+          {
+            itemStyle: { borderWidth: 4, borderColor: '#fff', gapWidth: 3 }
+          },
+          { colorMappingBy: 'value', itemStyle: { gapWidth: 1 } }
+        ]
+      }]
     });
 
-    new Chart(document.getElementById('discountChart'), {
-      type: 'bar',
-      data: {
-        labels: DATA.discount.labels,
-        datasets: [{
-          label: '平均利润',
-          data: DATA.discount.avg_profit,
-          backgroundColor: DATA.discount.avg_profit.map(v => v >= 0 ? SUCCESS + 'cc' : DANGER + 'cc'),
-          borderRadius: 4
-        }]
+    // 3. Scatter
+    const scatterChart = echarts.init(document.getElementById('scatterChart'));
+    eChartsList.push(scatterChart);
+    scatterChart.setOption({
+      color: [BRAND_COLORS[3]],
+      tooltip: {
+        ...initTooltip(),
+        formatter: function (p) {
+          return `<div style="font-weight:600;margin-bottom:4px">` + p.data[3] + `</div>` +
+            `平均折扣: ` + (p.data[0] * 100).toFixed(1) + `%<br>` +
+            `利润率: ` + (p.data[1] * 100).toFixed(1) + `%<br>` +
+            `总销售额: $` + p.data[2].toLocaleString();
+        }
       },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false }, tooltip: ttBase },
-        scales: commonScales
-      }
+      grid: { top: 35, right: 60, bottom: 40, left: 50 },
+      xAxis: {
+        name: '折扣率',
+        nameLocation: 'end',
+        nameGap: 10,
+        nameTextStyle: { fontSize: 10, color: '#6B7A96' },
+        splitLine: { lineStyle: { type: 'dashed', color: GRID } },
+        axisLabel: { color: '#6B7A96', fontSize: 10, formatter: v => (v * 100).toFixed(0) + '%' }
+      },
+      yAxis: {
+        name: '利润率',
+        nameTextStyle: { fontSize: 10, color: '#6B7A96', padding: [0, 0, 5, 0] },
+        splitLine: { lineStyle: { type: 'dashed', color: GRID } },
+        axisLabel: {
+          color: '#6B7A96', fontSize: 10,
+          formatter: v => (v * 100).toFixed(0) + '%'
+        }
+      },
+      series: [{
+        type: 'scatter',
+        data: DATA.echarts.scatter,
+        symbolSize: function (data) { return Math.max(Math.sqrt(data[2]) / 15, 6); },
+        itemStyle: {
+          color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [
+            { offset: 0, color: '#C8DAEF' },
+            { offset: 1, color: '#2B4E9E' }
+          ]),
+          opacity: 0.65,
+          borderWidth: 1,
+          borderColor: 'rgba(255,255,255,0.4)',
+          shadowBlur: 8, shadowColor: 'rgba(43, 78, 158, 0.15)'
+        }
+      }]
     });
+
+    // --- ChartJS ---
 
     new Chart(document.getElementById('shipChart'), {
       type: 'doughnut',
@@ -462,21 +536,7 @@
       }
     });
 
-    new Chart(document.getElementById('stateChart'), {
-      type: 'bar',
-      data: {
-        labels: DATA.state.labels,
-        datasets: [
-          { label: '销售额', data: DATA.state.sales, backgroundColor: ACCENT + 'cc', borderRadius: 4 },
-          { label: '利润', data: DATA.state.profit, backgroundColor: DATA.state.profit.map(v => v >= 0 ? SUCCESS + 'cc' : DANGER + 'cc'), borderRadius: 4 }
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { tooltip: ttBase },
-        scales: commonScales
-      }
-    });
+    // Note: StateChart disabled visually to maintain grid layout, it's omitted from HTML
   </script>
 </body>
 

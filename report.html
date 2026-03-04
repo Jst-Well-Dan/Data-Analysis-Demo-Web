@@ -247,14 +247,13 @@
             <!-- Central Tabs -->
             <div
                 class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center bg-slate-100 p-1 rounded-lg border border-slate-200">
-                <button onclick="switchTab('core')" id="btn-core"
-                    class="tab-btn active px-6 py-1.5 rounded-md text-sm font-medium transition-all bg-white shadow-sm text-brand-blue">核心能力</button>
-                <button onclick="switchTab('dashboard')" id="btn-dashboard"
-                    class="tab-btn px-6 py-1.5 rounded-md text-sm font-medium transition-all text-slate-500 hover:text-brand-blue">经营看板</button>
-                <button onclick="switchTab('report')" id="btn-report"
-                    class="tab-btn px-6 py-1.5 rounded-md text-sm font-medium transition-all text-slate-500 hover:text-brand-blue">战略报告</button>
+                <a href="index.html" id="btn-core"
+                    class="tab-btn px-6 py-1.5 rounded-md text-sm font-medium transition-all text-slate-500 hover:text-brand-blue">核心能力</a>
+                <a href="dashboard.html" id="btn-dashboard"
+                    class="tab-btn px-6 py-1.5 rounded-md text-sm font-medium transition-all text-slate-500 hover:text-brand-blue">经营看板</a>
+                <a href="report.html" id="btn-report"
+                    class="tab-btn active px-6 py-1.5 rounded-md text-sm font-medium transition-all bg-white shadow-sm text-brand-blue">战略报告</a>
             </div>
-
             <!-- Actions (Placeholder for future actions if needed) -->
             <div class="flex items-center gap-4">
                 <!-- Removed mock buttons per user request -->
@@ -262,298 +261,10 @@
         </div>
     </nav>
 
-    <!-- TAB 1: 核心能力 (Core Capabilities) -->
-    <div id="tab-core" class="tab-content active pb-20">
-
-        <!-- Hero Section -->
-        <section class="relative pt-24 pb-20 px-6 overflow-hidden">
-            <!-- Decorative Background blob -->
-            <div
-                class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-brand-tint rounded-full blur-3xl opacity-50 -z-10">
-            </div>
-
-            <div class="max-w-4xl mx-auto text-center">
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-brand-pale text-brand-blue shadow-sm shadow-brand-pale/50 text-xs font-semibold tracking-wide mb-8 transition-transform hover:scale-105 hover:border-brand-light">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-mid"></i>
-                    <span>AI 驱动的经营决策智能</span>
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-mid opacity-0"></i> <!-- 占位平衡 -->
-                </div>
-                <h1
-                    class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-brand-navy leading-tight tracking-tight mb-8">
-                    智于洞察<br />简于经营
-                </h1>
-                <p class="text-lg text-slate-600 mb-10 max-w-2xl mx-auto">
-                    打破数据孤岛与分析时滞。我们将静态的报表汇报，重塑为流动的智能洞察。让每一次经营决策，都拥有深度的财务逻辑与数据穿透。
-                </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <button onclick="switchTab('dashboard')"
-                        class="bg-brand-blue text-white px-8 py-3 rounded-xl text-sm font-semibold hover:bg-brand-mid transition-all shadow-lg shadow-brand-blue/30 hover:-translate-y-0.5">
-                        查看实时看板
-                    </button>
-                    <button onclick="switchTab('report')"
-                        class="bg-white text-brand-navy border border-slate-200 px-8 py-3 rounded-xl text-sm font-medium hover:bg-slate-50 transition-all shadow-sm hover:-translate-y-0.5">
-                        获取深度报告
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Scenario 1 -->
-        <section class="py-16 px-6">
-            <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
-                <div class="lg:w-5/12">
-                    <div
-                        class="w-12 h-12 rounded-xl bg-brand-tint flex items-center justify-center mb-6 text-brand-blue">
-                        <i data-lucide="bell-ring" class="w-6 h-6"></i>
-                    </div>
-                    <h2 class="text-3xl font-serif font-bold text-brand-navy mb-4">场景 <span
-                            class="font-sans">01</span>：数据主动寻找管理层</h2>
-                    <h3 class="text-xl text-slate-800 font-medium mb-4">从“人找数”变为“结论找人”</h3>
-                    <div class="space-y-4 mb-6">
-                        <div class="flex gap-3">
-                            <div class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0"></div>
-                            <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-slate-800">痛点：</strong>管理者往往在“找数据”上耗费精力，依赖人工制作层层递交的静态报表。当看到结论时，最佳决策窗口往往已经关闭，响应时滞极大。
-                            </p>
-                        </div>
-                        <div class="flex gap-3">
-                            <div class="w-1.5 h-1.5 rounded-full bg-brand-light mt-2 shrink-0"></div>
-                            <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-brand-navy">破局：</strong>由 AI 取代繁琐的整合工作，24
-                                小时全量扫描底层业务流，自动完成多源数据的实时聚合与多维透视。</p>
-                        </div>
-                        <div class="flex gap-3">
-                            <div class="w-1.5 h-1.5 rounded-full bg-brand-blue mt-2 shrink-0"></div>
-                            <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-brand-navy">价值：</strong>每天清晨，浓缩的经营早报与可视化看板主动推送至桌面。将静态汇报转化为流动的洞察，真正实现从<span
-                                    class="font-semibold text-brand-navy">“人找数”变为“结论找人”</span>。</p>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-start gap-3 text-sm text-slate-700">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 shrink-0"></i>
-                            <span>提取总销售额、利润率等核心宏观指标。</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-slate-700">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-600 shrink-0"></i>
-                            <span>自动识别局部表现（如西部领跑、中部承压）。</span>
-                        </li>
-                    </ul>
-                    <button onclick="switchTab('dashboard')"
-                        class="text-brand-blue font-medium text-sm flex items-center gap-2 hover:text-brand-navy">
-                        跳转交互式经营看板 <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-                <div class="lg:w-7/12">
-                    <div class="glass-img-container p-2 bg-white relative">
-                        <img src="pic/场景1.png" alt="经营早报推送场景"
-                            class="w-full rounded-lg shadow-sm border border-slate-100">
-
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Scenario 2 -->
-        <section class="py-16 px-6 bg-white/50 border-y border-slate-200/50">
-            <div class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-16">
-                <div class="lg:w-7/12">
-                    <div class="glass-img-container p-2 bg-white relative">
-                        <img src="pic/场景2.png" alt="实时下钻分析场景"
-                            class="w-full rounded-lg shadow-sm border border-slate-100">
-
-                    </div>
-                </div>
-                <div class="lg:w-5/12">
-                    <div
-                        class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center mb-6 text-orange-600">
-                        <i data-lucide="message-square-dashed" class="w-6 h-6"></i>
-                    </div>
-                    <h2 class="text-3xl font-serif font-bold text-brand-navy mb-4">场景 <span
-                            class="font-sans">02</span>：跨越汇报层级的即时洞察</h2>
-                    <h3 class="text-xl text-slate-800 font-medium mb-4">实时诊脉，穿透业务黑盒</h3>
-                    <div class="space-y-4 mb-6">
-                        <div class="flex gap-3">
-                            <div class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0"></div>
-                            <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-slate-800">痛点：</strong>面对报表上的利润洼地，经验判断往往带有偏差。若要拉取明细或层层向下属追问，沟通成本极高，且难以抓准真实原因。
-                            </p>
-                        </div>
-                        <div class="flex gap-3">
-                            <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></div>
-                            <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-brand-navy">破局：</strong>只需向 AI
-                                发起实时追问，模型即刻下钻多重维度（如地区、折扣率区间），在一秒内层层剥离出“亏损黑盒”中的内核原因。</p>
-                        </div>
-                        <div class="flex gap-3">
-                            <div class="w-1.5 h-1.5 rounded-full bg-orange-600 mt-2 shrink-0"></div>
-                            <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-brand-navy">价值：</strong>不只停留在浅层展示数据，而是直接穿透至“折扣失控”等具体业务动作，并给出<span
-                                    class="font-semibold text-brand-navy">可执行的干预建议</span>，实现跨越层级的即时诊断。</p>
-                        </div>
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                        <div class="text-sm text-slate-500 mb-2">管理者：</div>
-                        <div class="text-brand-navy font-medium">“桌子品类亏损具体什么原因？”</div>
-                        <div class="my-3 border-t border-slate-200"></div>
-                        <div class="text-sm text-slate-500 mb-2">AI 分析师：</div>
-                        <div class="text-slate-700 text-sm">“核心原因：折扣失控。建议设置 20% 折扣上限进行干预。”</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Scenario 3 -->
-        <section class="py-16 px-6">
-            <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
-                <div class="lg:w-5/12">
-                    <div class="w-12 h-12 rounded-xl bg-brand-navy flex items-center justify-center mb-6 text-white">
-                        <i data-lucide="file-pie-chart" class="w-6 h-6"></i>
-                    </div>
-                    <h2 class="text-3xl font-serif font-bold text-brand-navy mb-4">场景 <span
-                            class="font-sans">03</span>：敏捷建模与战略级交付</h2>
-                    <h3 class="text-xl text-slate-800 font-medium mb-4">由数据驱动的战略决断</h3>
-                    <div class="space-y-4 mb-6">
-                        <div class="flex gap-3">
-                            <div class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0"></div>
-                            <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-slate-800">痛点：</strong>战略决策常依赖模糊的“业务直觉”，其量化验证往往需要分析师耗费数天测算；且零散的对话记录难以形成高规格的正式文件供决策层流转。
-                            </p>
-                        </div>
-                        <div class="flex gap-3">
-                            <div class="w-1.5 h-1.5 rounded-full bg-brand-light mt-2 shrink-0"></div>
-                            <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-brand-navy">破局：</strong>我们将专业级别的财务与风控逻辑硬核嵌入
-                                AI。面对复杂假设，系统自动调用相关性分析与断崖点检测等高级算法，进行深度的量化验证。</p>
-                        </div>
-                        <div class="flex gap-3">
-                            <div class="w-1.5 h-1.5 rounded-full bg-brand-navy mt-2 shrink-0"></div>
-                            <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-brand-navy">价值：</strong>一键从海量运算中生成逻辑严密、排版专业的《数据分析报告》，立刻将直觉转化为管理红线，为您交付<span
-                                    class="font-semibold text-brand-navy">实打实的战略级决断依据</span>。</p>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-start gap-3 text-sm text-slate-700">
-                            <i data-lucide="brain-circuit" class="w-5 h-5 text-brand-blue shrink-0"></i>
-                            <span>量化验证管理者的直觉推演。</span>
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-slate-700">
-                            <i data-lucide="printer" class="w-5 h-5 text-brand-blue shrink-0"></i>
-                            <span>一键生成格式化的高管参阅汇报文档。</span>
-                        </li>
-                    </ul>
-                    <button onclick="switchTab('report')"
-                        class="text-brand-blue font-medium text-sm flex items-center gap-2 hover:text-brand-navy">
-                        浏览完整版生成的数字报告 <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-                <div class="lg:w-7/12">
-                    <div class="glass-img-container p-2 bg-white relative">
-                        <img src="pic/场景3.png" alt="自动生成分析报告场景"
-                            class="w-full rounded-lg shadow-sm border border-slate-100">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Security Badge -->
-        <section class="max-w-4xl mx-auto px-6 py-12">
-            <div
-                class="glass-card rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden group">
-                <!-- 底部微光 -->
-                <div
-                    class="absolute -right-10 -bottom-10 w-40 h-40 bg-brand-tint rounded-full blur-3xl group-hover:bg-brand-pale transition-colors duration-500 -z-10">
-                </div>
-
-                <div
-                    class="w-14 h-14 rounded-full bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 flex items-center justify-center shrink-0 shadow-sm shadow-green-100/50 relative z-10">
-                    <i data-lucide="shield-check" class="w-7 h-7 text-emerald-600"></i>
-                </div>
-                <div class="relative z-10">
-                    <h4 class="font-bold text-lg text-brand-navy mb-1.5 font-serif">您的数据资产，绝对私有且物理安全</h4>
-                    <p class="text-sm text-slate-500 flex flex-wrap md:flex-nowrap items-center gap-2">
-                        本地化算力部署 <span class="hidden md:inline-block w-1 h-1 rounded-full bg-slate-300"></span><span
-                            class="md:hidden">·</span> 敏感数据自动脱敏 <span
-                            class="hidden md:inline-block w-1 h-1 rounded-full bg-slate-300"></span><span
-                            class="md:hidden">·</span> 核心业务不出厂
-                    </p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- TAB 2: 经营看板 (Interactive Dashboard) -->
-    <div id="tab-dashboard" class="tab-content pt-4">
-        <div class="max-w-[1400px] mx-auto px-4 pb-6">
-            <div
-                class="bg-brand-tint text-brand-navy px-4 py-2 rounded-t-lg text-sm flex items-center gap-2 font-medium border border-brand-pale border-b-0">
-                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                自动生成的交互式经营看板
-            </div>
-            <div class="bg-white rounded-b-lg shadow-lg border border-slate-200 overflow-x-auto iframe-container h-[calc(100vh-140px)]"
-                style="-webkit-overflow-scrolling: touch;">
-                <!-- Using an iframe to render the dashboard file -->
-                <iframe src="superstore_dashboard.html" title="Superstore Dashboard"
-                    class="w-full h-full border-0 min-w-[1200px]"></iframe>
-            </div>
-        </div>
-    </div>
-
     <!-- TAB 3: 战略报告 (Executive Report) -->
-    <div id="tab-report" class="tab-content">
+    <div id="tab-report" class="tab-content active">
         <div class="max-w-4xl mx-auto py-8 px-6 pb-20">
             <div class="glass-card bg-white rounded-xl p-8 md:p-12 shadow-sm border border-slate-200 report-content">
-
-                <!-- AI Download CTA Card -->
-                <div
-                    class="mb-10 p-6 bg-brand-tint/60 border border-brand-pale rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 group transition-all duration-300 hover:shadow-md">
-                    <div class="flex items-center gap-6 text-left">
-                        <div
-                            class="w-14 h-14 shrink-0 rounded-2xl bg-white shadow-sm flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-all duration-500">
-                            <i data-lucide="sparkles" class="w-7 h-7"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="text-lg font-bold text-brand-navy mb-3">AI 智能内核驱动的专业报告</h4>
-                            <ul class="space-y-3 text-sm text-slate-600 !pl-0 !list-none !mb-0">
-                                <li class="flex items-start gap-3">
-                                    <div
-                                        class="w-5 h-5 shrink-0 rounded-md bg-brand-blue/10 text-brand-blue font-mono text-xs font-bold flex items-center justify-center mt-0.5 shadow-sm">
-                                        1</div>
-                                    <span class="leading-relaxed">依托对 <span
-                                            class="font-mono font-bold text-brand-navy">上万</span>
-                                        笔真实底层数据的深层穿透，让您的业务洞察拥有数据底气。</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <div
-                                        class="w-5 h-5 shrink-0 rounded-md bg-brand-blue/10 text-brand-blue font-mono text-xs font-bold flex items-center justify-center mt-0.5 shadow-sm">
-                                        2</div>
-                                    <span class="leading-relaxed">紧密结合您的实战经验，对战略假设进行量化分析，提供坚实的数据支撑。</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <div
-                                        class="w-5 h-5 shrink-0 rounded-md bg-brand-blue/10 text-brand-blue font-mono text-xs font-bold flex items-center justify-center mt-0.5 shadow-sm">
-                                        3</div>
-                                    <span class="leading-relaxed">一键生成 <span
-                                            class="font-semibold text-brand-navy">严格符合公司标准排版与行文规范</span> 的高规格 Word
-                                        报告。</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <a href="superstore_executive_report.docx" download="知微探界-Superstore全景盈利能力与战略诊断报告.docx"
-                        class="flex items-center gap-3 bg-brand-navy text-white px-8 py-4 rounded-xl hover:bg-brand-blue transition-all shadow-[0_4px_12px_rgba(28,52,97,0.15)] hover:shadow-[0_8px_24px_rgba(43,78,158,0.25)] active:scale-95 whitespace-nowrap group/btn">
-                        <div class="p-1.5 bg-white/20 rounded-lg group-hover/btn:rotate-12 transition-transform">
-                            <i data-lucide="file-down" class="w-5 h-5 text-white"></i>
-                        </div>
-                        <div class="text-left">
-                            <div class="text-[10px] opacity-70 leading-none mb-1">Standard Word Doc</div>
-                            <div class="font-bold text-base leading-none">导出完整报告</div>
-                        </div>
-                    </a>
-                </div>
 
                 <div class="text-center mb-10 border-b border-n300 pb-8">
                     <h1 class="text-3xl font-serif text-brand-navy font-bold mb-4">穿透增长迷雾：全景盈利能力与战略诊断</h1>
@@ -1137,80 +848,37 @@
     <!-- Mobile Bottom Navigation Bar (Bottom App Bar) -->
     <div
         class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 backdrop-blur-xl border-t border-slate-200/60 pb-safe pb-2 px-6 flex items-center justify-around shadow-[0_-4px_20px_rgba(28,52,97,0.06)] overflow-hidden">
-        <!-- Optional iOS Home indicator spacing: pb-safe relies on safe-area-inset in production -->
-
-        <button onclick="switchTab('core')" id="mob-btn-core"
-            class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-brand-blue group">
+        <a href="index.html" id="mob-btn-core"
+            class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-slate-400 hover:text-slate-600 group">
             <i data-lucide="layers" class="w-5 h-5 transition-transform group-active:scale-90"></i>
             <span class="text-[10px] font-medium tracking-wide">核心能力</span>
             <div
-                class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-100">
+                class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-0">
             </div>
-        </button>
+        </a>
 
-        <button onclick="switchTab('dashboard')" id="mob-btn-dashboard"
+        <a href="dashboard.html" id="mob-btn-dashboard"
             class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-slate-400 hover:text-slate-600 group">
             <i data-lucide="layout-dashboard" class="w-5 h-5 transition-transform group-active:scale-90"></i>
             <span class="text-[10px] font-medium tracking-wide">经营看板</span>
-            <div class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-0">
+            <div
+                class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-0">
             </div>
-        </button>
+        </a>
 
-        <button onclick="switchTab('report')" id="mob-btn-report"
-            class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-slate-400 hover:text-slate-600 group">
+        <a href="report.html" id="mob-btn-report"
+            class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-brand-blue group">
             <i data-lucide="file-text" class="w-5 h-5 transition-transform group-active:scale-90"></i>
             <span class="text-[10px] font-medium tracking-wide">战略报告</span>
-            <div class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-0">
+            <div
+                class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-100">
             </div>
-        </button>
-    </div>
+        </a>
 
+    </div>
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
-
-        // Tab Switching Logic
-        function switchTab(tabId) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(el => {
-                el.classList.remove('active');
-            });
-            // Reset all Desktop tab buttons
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('bg-white', 'shadow-sm', 'text-brand-blue');
-                el.classList.add('text-slate-500');
-            });
-
-            // Reset all Mobile tab buttons & indicators
-            document.querySelectorAll('.mob-tab-btn').forEach(el => {
-                el.classList.remove('text-brand-blue');
-                el.classList.add('text-slate-400');
-                const indicator = el.querySelector('.active-indicator');
-                if (indicator) indicator.classList.replace('opacity-100', 'opacity-0');
-            });
-
-            // Show selected tab content
-            document.getElementById('tab-' + tabId).classList.add('active');
-
-            // Style selected Desktop tab button
-            const activeBtn = document.getElementById('btn-' + tabId);
-            if (activeBtn) {
-                activeBtn.classList.remove('text-slate-500', 'hover:text-brand-blue');
-                activeBtn.classList.add('bg-white', 'shadow-sm', 'text-brand-blue');
-            }
-
-            // Style selected Mobile tab button
-            const activeMobBtn = document.getElementById('mob-btn-' + tabId);
-            if (activeMobBtn) {
-                activeMobBtn.classList.remove('text-slate-400');
-                activeMobBtn.classList.add('text-brand-blue');
-                const activeIndicator = activeMobBtn.querySelector('.active-indicator');
-                if (activeIndicator) activeIndicator.classList.replace('opacity-0', 'opacity-100');
-            }
-
-            // On mobile, scroll to top whenever switching tab
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
     </script>
 </body>
 
