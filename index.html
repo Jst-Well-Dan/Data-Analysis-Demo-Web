@@ -1096,7 +1096,7 @@
                     <p class="text-slate-600">联系我们的数据策略专家，获取为您企业量身定制的 AI 智能分析演示。</p>
                 </div>
 
-                <div class="relative z-10 shrink-0">
+                <div class="relative z-10 shrink-0 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-6 md:mt-0">
                     <a href="mailto:business@zwtj.site"
                         class="group flex items-center justify-center gap-3 bg-brand-blue text-white px-8 py-4 rounded-xl font-medium shadow-[0_8px_30px_rgb(43,78,158,0.2)] hover:bg-brand-navy hover:shadow-[0_8px_30px_rgb(28,52,97,0.3)] hover:-translate-y-1 transition-all duration-300 border border-brand-light/30">
                         <div class="bg-white/20 p-2 rounded-lg group-hover:bg-white/30 transition-colors">
@@ -1106,23 +1106,25 @@
                         <i data-lucide="arrow-right"
                             class="w-4 h-4 ml-1 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
                     </a>
+
+                    <!-- 联系二维码 -->
+                    <div
+                        class="flex flex-col items-center gap-1.5 group bg-white/60 p-2 rounded-xl border border-brand-pale/50 backdrop-blur-sm">
+                        <img src="pic/二维码.png" alt="联系我们"
+                            class="w-16 h-16 rounded-md shadow-sm transition-transform duration-300 group-hover:scale-105">
+                        <span class="text-[10px] font-medium text-slate-500 tracking-wider">联系我们</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Footer Bottom -->
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-slate-200/60 pt-8">
-                <div class="flex items-center gap-2">
-                    <div
-                        class="w-6 h-6 rounded bg-gradient-to-br from-brand-blue to-brand-light flex items-center justify-center text-white shadow-sm">
-                        <i data-lucide="compass" class="w-3.5 h-3.5"></i>
-                    </div>
-                    <span class="font-bold text-slate-800 font-serif text-sm">知微探界</span>
-                    <span
-                        class="text-slate-400 text-xs ml-2 border-l border-slate-300 pl-2 hidden sm:inline-block">新一代企业
-                        AI 经营分析大脑</span>
-                </div>
-                <div class="text-sm text-slate-500">
+            <div class="flex flex-col items-center justify-center border-t border-slate-200/60 pt-8 mt-4">
+                <div class="text-xs md:text-sm text-slate-500 text-center leading-relaxed">
                     &copy; 2026 北京知微探界科技有限公司 保留所有权利
+                    <span class="hidden md:inline-block text-slate-300 mx-2">|</span>
+                    <br class="md:hidden" />
+                    <a href="https://beian.miit.gov.cn/" target="_blank"
+                        class="hover:text-brand-blue transition-colors">京ICP备2025141006号-1</a>
                 </div>
             </div>
         </div>
