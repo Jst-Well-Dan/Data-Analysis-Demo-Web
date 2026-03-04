@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>知微探界 | 业务风险监测与经营决策系统</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --brand-navy: #1C3461;
+      --brand-blue: #2B4E9E;
+      --brand-mid: #3D6BC4;
+      --brand-light: #6B96D8;
+      --brand-pale: #C8DAEF;
+      --brand-tint: #EBF2FB;
+      --n900: #1A2233;
+      --n700: #3D4E68;
+      --n500: #6B7A96;
+      --n300: #B8C2D4;
+      --n100: #EEF1F6;
+      --n50: #F7F9FC;
+      --white: #FFFFFF;
+      --success: #1E7A4E;
+      --success-bg: #E6F4ED;
+      --warning: #A85C00;
+      --warning-bg: #FEF3E2;
+      --danger: #B02A2A;
+      --danger-bg: #FDEAEA;
+      --font-heading: 'Noto Serif SC', 'STSong', serif;
+      --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+
+      --background: var(--n50);
+      --foreground: var(--n900);
+      --accent: var(--brand-blue);
+      --card-bg: var(--white);
+      --border: var(--brand-pale);
+      --radius: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--background);
+      color: var(--foreground);
+      font-family: var(--font-body);
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      /* No scroll */
+      padding: 1.5vh 1.5vw;
+      gap: 1.5vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5vh 1.5vw;
+      background: var(--brand-navy);
+      color: #FFFFFF;
+      border-radius: var(--radius);
+      margin-bottom: 1vh;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 24px;
+      color: #FFFFFF;
+    }
+
+    .logo span {
+      color: var(--brand-light);
+      margin-left: 10px;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 12px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1vw;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2vh 1vw;
+      text-align: center;
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      color: var(--n500);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .kpi-value {
+      font-size: 24px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--brand-blue);
+    }
+
+    .charts-main-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1vw;
+      min-height: 0;
+    }
+
+    .chart-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1vh;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .chart-title {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      border-left: 4px solid var(--brand-blue);
+      padding-left: 10px;
+      color: var(--brand-navy);
+    }
+
+    .canvas-wrapper {
+      flex: 1;
+      position: relative;
+      min-height: 0;
+    }
+
+    .bar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .bar-item {
+      font-size: 11px;
+    }
+
+    .bar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+
+    .bar-track {
+      height: 6px;
+      background: var(--muted);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      transition: width 1s;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--muted-foreground);
+      padding-top: 0.5vh;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">总销售额</div>
+      <div class="kpi-value">￥2,297,201</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">总利润</div>
+      <div class="kpi-value">￥286,397</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">利润率</div>
+      <div class="kpi-value">12.47%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">总订单数</div>
+      <div class="kpi-value">9,994</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">商品销量</div>
+      <div class="kpi-value">37,873</div>
+    </div>
+  </div>
+
+  <main class="charts-main-grid">
+    <div class="chart-card">
+      <div class="chart-title">地区业绩分析</div>
+      <div class="canvas-wrapper"><canvas id="regionChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">核心品类构成</div>
+      <div class="canvas-wrapper"><canvas id="categoryDonut"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">子品类盈亏 Top 10</div>
+      <div class="canvas-wrapper"><canvas id="subcatChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">客户细分分布</div>
+      <div class="canvas-wrapper"><canvas id="segmentChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">各州/省销售概览</div>
+      <div class="canvas-wrapper"><canvas id="stateChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">物流时效统计</div>
+      <div class="canvas-wrapper"><canvas id="shipChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">折扣率与平均利润</div>
+      <div class="canvas-wrapper"><canvas id="discountChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">利润预警关注</div>
+      <div class="bar-list">
+        <div class="bar-item">
+          <div class="bar-header"><span class="bar-name">桌子</span><span class="bar-val"
+              style="color:var(--danger)">$-17,725</span></div>
+          <div class="bar-track" style="background:var(--danger-bg)">
+            <div class="bar-fill" style="width:100%; background:var(--danger);"></div>
+          </div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-header"><span class="bar-name">书架</span><span class="bar-val"
+              style="color:var(--danger)">$-3,473</span></div>
+          <div class="bar-track" style="background:var(--danger-bg)">
+            <div class="bar-fill" style="width:19%; background:var(--danger);"></div>
+          </div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-header"><span class="bar-name">用品</span><span class="bar-val"
+              style="color:var(--danger)">$-1,189</span></div>
+          <div class="bar-track" style="background:var(--danger-bg)">
+            <div class="bar-fill" style="width:6%; background:var(--danger);"></div>
+          </div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-header"><span class="bar-name">紧固件</span><span class="bar-val"
+              style="color:var(--success)">$950</span></div>
+          <div class="bar-track" style="background:var(--success-bg)">
+            <div class="bar-fill" style="width:5%; background:var(--success);"></div>
+          </div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-header"><span class="bar-name">机械</span><span class="bar-val"
+              style="color:var(--success)">$3,385</span></div>
+          <div class="bar-track" style="background:var(--success-bg)">
+            <div class="bar-fill" style="width:19%; background:var(--success);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+
+  <script>
+    lucide.createIcons();
+
+    const DATA = { "kpis": { "total_sales": 2297200.86, "total_profit": 286397.02, "total_qty": 37873, "total_orders": 9994, "profit_margin": 12.47 }, "region": { "labels": ["\u897f\u90e8", "\u4e1c\u90e8", "\u4e2d\u90e8", "\u5357\u90e8"], "sales": [725457.82, 678781.24, 501239.89, 391721.91], "profit": [108418.45, 91522.78, 39706.36, 46749.43] }, "category": { "labels": ["\u6280\u672f", "\u5bb6\u5177", "\u529e\u516c\u7528\u54c1"], "sales": [836154.03, 741999.8, 719047.03], "profit": [145454.95, 18451.27, 122490.8] }, "subcat": { "labels": ["\u590d\u5370\u673a", "\u7535\u8bdd", "\u9644\u4ef6", "\u7eb8\u5f20", "\u88c5\u8ba2", "\u6905\u5b50", "\u50a8\u7269", "\u5668\u5177", "\u9648\u5217", "\u4fe1\u5c01"], "sales": [149528.03, 330007.05, 167380.32, 78479.21, 203412.73, 328449.1, 223843.61, 107532.16, 91705.16, 16476.4], "profit": [55617.82, 44515.73, 41936.64, 34053.57, 30221.76, 26590.17, 21278.83, 18138.01, 13059.14, 6964.18] }, "segment": { "labels": ["\u6d88\u8d39\u8005", "\u4f01\u4e1a", "\u5bb6\u5ead\u529e\u516c\u5ba4"], "sales": [1161401.34, 706146.37, 429653.15], "profit": [134119.21, 91979.13, 60298.68] }, "ship": { "labels": ["\u6807\u51c6\u7ea7\u8d27\u8fd0", "\u4e8c\u7ea7\u8d27\u8fd0", "\u4e00\u7ea7\u8d27\u8fd0", "\u5f53\u65e5\u8fbe"], "counts": [5968, 1945, 1538, 543] }, "discount": { "labels": ["1-10%", "0%", "11-20%", "21-30%", "31%+"], "counts": [94, 4798, 3709, 227, 1166], "avg_profit": [96.06, 66.9, 24.74, -45.68, -107.21] }, "state": { "labels": ["\u52a0\u5229\u798f\u5c3c\u4e9a\u5dde", "\u7ebd\u7ea6\u5dde", "\u5fb7\u514b\u8428\u65af\u5dde", "\u534e\u76db\u987f\u5dde", "\u5bbe\u5915\u6cd5\u5c3c\u4e9a\u5dde", "\u4f5b\u7f57\u91cc\u8fbe\u5dde", "\u4f0a\u5229\u8bfa\u4f0a\u5dde", "\u4fc4\u4ea5\u4fc4\u5dde", "\u5bc6\u6b47\u6839\u5dde", "\u5f17\u5409\u5c3c\u4e9a\u5dde"], "sales": [457687.63, 310876.27, 170188.05, 138641.27, 116511.91, 89473.71, 80166.1, 78258.14, 76269.61, 70636.72], "profit": [76381.39, 74038.55, -25729.36, 33402.65, -15559.96, -3399.3, -12607.89, -16971.38, 24463.19, 18597.95] } };
+    const BRAND_COLORS = ['#2B4E9E', '#1E7A4E', '#B45309', '#6B96D8', '#5E9E76', '#D4853A', '#9B5EBF', '#E05252'];
+    const ACCENT = BRAND_COLORS[0];
+    const SUCCESS = '#1E7A4E';
+    const DANGER = '#B02A2A';
+    const TEXT = '#1A2233';
+    const GRID = '#EEF1F6';
+
+    const ttBase = {
+      backgroundColor: '#ffffff',
+      titleColor: '#1A2233',
+      bodyColor: '#3D4E68',
+      borderColor: '#C8DAEF',
+      borderWidth: 1,
+      padding: 12,
+      cornerRadius: 4,
+      titleFont: { family: 'var(--font-heading)', size: 13, weight: '600' },
+      bodyFont: { family: 'var(--font-body)', size: 12 }
+    };
+
+    const commonScales = {
+      x: {
+        grid: { color: GRID },
+        ticks: { color: TEXT + '99', font: { family: 'Poppins', size: 10 } }
+      },
+      y: {
+        grid: { color: GRID },
+        ticks: {
+          color: TEXT + '99',
+          font: { family: 'Poppins', size: 10 },
+          callback: v => v >= 1000 ? '$' + (v / 1000).toFixed(0) + 'K' : '$' + v
+        }
+      }
+    };
+
+    Chart.defaults.font.family = "'Noto Sans SC', sans-serif";
+    Chart.defaults.color = TEXT;
+
+    new Chart(document.getElementById('regionChart'), {
+      type: 'bar',
+      data: {
+        labels: DATA.region.labels,
+        datasets: [
+          { label: '销售额', data: DATA.region.sales, backgroundColor: ACCENT + 'cc', borderRadius: 4 },
+          { label: '利润', data: DATA.region.profit, backgroundColor: SUCCESS + 'cc', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { tooltip: ttBase },
+        scales: commonScales
+      }
+    });
+
+    new Chart(document.getElementById('categoryDonut'), {
+      type: 'doughnut',
+      data: {
+        labels: DATA.category.labels,
+        datasets: [{
+          data: DATA.category.sales,
+          backgroundColor: BRAND_COLORS,
+          borderWidth: 2,
+          borderColor: '#ffffff',
+          hoverOffset: 15
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        cutout: '75%',
+        plugins: {
+          legend: { position: 'bottom', labels: { padding: 20, font: { size: 11 } } },
+          tooltip: ttBase
+        }
+      }
+    });
+
+    new Chart(document.getElementById('subcatChart'), {
+      type: 'bar',
+      data: {
+        labels: DATA.subcat.labels,
+        datasets: [
+          { label: '销售额', data: DATA.subcat.sales, backgroundColor: ACCENT + 'cc', borderRadius: 4 },
+          { label: '利润', data: DATA.subcat.profit, backgroundColor: SUCCESS + 'cc', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { tooltip: ttBase },
+        scales: commonScales
+      }
+    });
+
+    new Chart(document.getElementById('segmentChart'), {
+      type: 'polarArea',
+      data: {
+        labels: DATA.segment.labels,
+        datasets: [{
+          data: DATA.segment.sales,
+          backgroundColor: BRAND_COLORS.map(c => c + 'cc'),
+          borderColor: '#ffffff',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { padding: 15, font: { size: 11 } } },
+          tooltip: ttBase
+        },
+        scales: { r: { ticks: { display: false }, grid: { color: GRID } } }
+      }
+    });
+
+    new Chart(document.getElementById('discountChart'), {
+      type: 'bar',
+      data: {
+        labels: DATA.discount.labels,
+        datasets: [{
+          label: '平均利润',
+          data: DATA.discount.avg_profit,
+          backgroundColor: DATA.discount.avg_profit.map(v => v >= 0 ? SUCCESS + 'cc' : DANGER + 'cc'),
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: ttBase },
+        scales: commonScales
+      }
+    });
+
+    new Chart(document.getElementById('shipChart'), {
+      type: 'doughnut',
+      data: {
+        labels: DATA.ship.labels,
+        datasets: [{
+          data: DATA.ship.counts,
+          backgroundColor: BRAND_COLORS.slice(0, 4).map(c => c + 'cc'),
+          borderWidth: 2,
+          borderColor: '#ffffff'
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        cutout: '65%',
+        plugins: {
+          legend: { position: 'bottom', labels: { usePointStyle: true, padding: 15, font: { size: 10 } } },
+          tooltip: ttBase
+        }
+      }
+    });
+
+    new Chart(document.getElementById('stateChart'), {
+      type: 'bar',
+      data: {
+        labels: DATA.state.labels,
+        datasets: [
+          { label: '销售额', data: DATA.state.sales, backgroundColor: ACCENT + 'cc', borderRadius: 4 },
+          { label: '利润', data: DATA.state.profit, backgroundColor: DATA.state.profit.map(v => v >= 0 ? SUCCESS + 'cc' : DANGER + 'cc'), borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { tooltip: ttBase },
+        scales: commonScales
+      }
+    });
+  </script>
+</body>
+
+</html>
