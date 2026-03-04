@@ -326,7 +326,7 @@
                         <div class="flex gap-3">
                             <div class="w-1.5 h-1.5 rounded-full bg-brand-blue mt-2 shrink-0"></div>
                             <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-brand-navy">价值：</strong>每天清晨，浓缩的经营早报与可视化看板主动推送致桌面。将静态汇报转化为流动的洞察，真正实现从<span
+                                    class="text-brand-navy">价值：</strong>每天清晨，浓缩的经营早报与可视化看板主动推送至桌面。将静态汇报转化为流动的洞察，真正实现从<span
                                     class="font-semibold text-brand-navy">“人找数”变为“结论找人”</span>。</p>
                         </div>
                     </div>
@@ -389,7 +389,7 @@
                         <div class="flex gap-3">
                             <div class="w-1.5 h-1.5 rounded-full bg-orange-600 mt-2 shrink-0"></div>
                             <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-brand-navy">价值：</strong>不只停留在轻浅展示数据，而是直接穿透至“折扣失控”等具体业务动作，并给出<span
+                                    class="text-brand-navy">价值：</strong>不只停留在浅层展示数据，而是直接穿透至“折扣失控”等具体业务动作，并给出<span
                                     class="font-semibold text-brand-navy">可执行的干预建议</span>，实现跨越层级的即时诊断。</p>
                         </div>
                     </div>
@@ -492,11 +492,11 @@
                 <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
                 自动生成的交互式经营看板
             </div>
-            <div
-                class="bg-white rounded-b-lg shadow-lg border border-slate-200 overflow-hidden iframe-container h-[calc(100vh-140px)]">
+            <div class="bg-white rounded-b-lg shadow-lg border border-slate-200 overflow-x-auto iframe-container h-[calc(100vh-140px)]"
+                style="-webkit-overflow-scrolling: touch;">
                 <!-- Using an iframe to render the dashboard file -->
                 <iframe src="superstore_dashboard.html" title="Superstore Dashboard"
-                    class="w-full h-full border-0"></iframe>
+                    class="w-full h-full border-0 min-w-[1024px]"></iframe>
             </div>
         </div>
     </div>
