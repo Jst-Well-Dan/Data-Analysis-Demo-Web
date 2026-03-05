@@ -4,266 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>知微探界 - 新一代企业 AI 经营分析大脑</title>
+    <title>核心能力 - 知微探界</title>
+    <meta name="description" content="知微探界 AI 经营分析平台——打破数据孤岛，将静态报表重塑为流动的智能洞察，让每次经营决策都拥有深度的财务逻辑与数据穿透。">
+    <meta property="og:title" content="核心能力 - 知微探界">
+    <meta property="og:description" content="知微探界 AI 经营分析平台——打破数据孤岛，将静态报表重塑为流动的智能洞察。">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="pic/场景1.png">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232B4E9E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><polygon points='16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76'/></svg>">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind-config.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
-    <style>
-        :root {
-            /* zwtj-brand-skill Colors */
-            --brand-navy: #1C3461;
-            --brand-blue: #2B4E9E;
-            --brand-mid: #3D6BC4;
-            --brand-light: #6B96D8;
-            --brand-pale: #C8DAEF;
-            --brand-tint: #EBF2FB;
-            --n900: #1A2233;
-            --n700: #3D4E68;
-            --n500: #6B7A96;
-            --n300: #B8C2D4;
-            --n100: #EEF1F6;
-            --n50: #F7F9FC;
-            --white: #FFFFFF;
-            --success: #1E7A4E;
-            --warning: #A85C00;
-            --danger: #B02A2A;
-
-            --font-heading: 'Noto Serif SC', 'STSong', serif;
-            --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background-color: var(--n50);
-            color: var(--n900);
-            overflow-y: scroll;
-        }
-
-        .font-serif {
-            font-family: 'Noto Serif SC', serif;
-        }
-
-        /* Glassmorphism Styles */
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(200, 218, 239, 0.4);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 4px 24px -6px rgba(28, 52, 97, 0.06);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px -8px rgba(28, 52, 97, 0.12);
-            border-color: rgba(200, 218, 239, 0.8);
-        }
-
-        .glass-img-container {
-            border: 1px solid rgba(200, 218, 239, 0.4);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px -10px rgba(28, 52, 97, 0.1);
-        }
-
-        /* Tabs Logic */
-        .tab-content {
-            display: none;
-            opacity: 0;
-            animation: fadeIn 0.4s ease forwards;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Markdown Report Styles */
-        .report-content h2 {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--brand-navy);
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid var(--n100);
-            padding-bottom: 0.5rem;
-        }
-
-        .report-content h3 {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: var(--n900);
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .report-content p,
-        .report-content li {
-            margin-bottom: 0.75rem;
-            color: var(--n700);
-            line-height: 1.8;
-        }
-
-        .report-content ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .report-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            font-size: 0.875rem;
-        }
-
-        .report-table th {
-            background-color: var(--brand-navy);
-            color: white;
-            padding: 12px;
-            text-align: left;
-            font-weight: 500;
-        }
-
-        .report-table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--n100);
-            color: var(--n700);
-        }
-
-        .report-table tr:nth-child(even) td {
-            background-color: var(--brand-tint);
-        }
-
-        .callout {
-            background-color: var(--brand-tint);
-            border-left: 4px solid var(--brand-blue);
-            padding: 16px;
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
-        }
-
-        .callout-warning {
-            background-color: #FEF3E2;
-            border-left: 4px solid var(--warning);
-            padding: 16px;
-            border-radius: 0 8px 8px 0;
-            margin: 1.5rem 0;
-        }
-
-        strong {
-            color: var(--n900);
-            font-weight: 700;
-        }
-
-        .highlight-red {
-            color: var(--danger);
-            font-weight: 700;
-        }
-
-        .highlight-green {
-            color: var(--success);
-            font-weight: 700;
-        }
-    </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'sans-serif'],
-                        serif: ['Noto Serif SC', 'STSong', 'serif'],
-                        mono: ['JetBrains Mono', 'Consolas', 'monospace']
-                    },
-                    colors: {
-                        brand: {
-                            navy: '#1C3461',
-                            blue: '#2B4E9E',
-                            mid: '#3D6BC4',
-                            light: '#6B96D8',
-                            pale: '#C8DAEF',
-                            tint: '#EBF2FB'
-                        },
-                        slate: {
-                            900: '#1A2233',
-                            800: '#2A364E',
-                            700: '#3D4E68',
-                            600: '#546682',
-                            500: '#6B7A96',
-                            400: '#92A0B7',
-                            300: '#B8C2D4',
-                            200: '#D5DFED',
-                            100: '#EEF1F6',
-                            50: '#F7F9FC'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="shared.css">
 </head>
 
 <body class="pt-16">
 
-    <!-- Top Navigation -->
-    <nav class="fixed top-0 left-0 w-full z-50 glass-nav">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative">
-            <!-- Logo -->
-            <div class="flex items-center gap-3 group cursor-pointer">
-                <div
-                    class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-blue to-brand-light flex items-center justify-center text-white shadow-md shadow-brand-blue/30 transition-transform group-hover:scale-105">
-                    <i data-lucide="compass" class="w-5 h-5"></i>
-                </div>
-                <span
-                    class="font-bold text-lg tracking-tight text-brand-navy font-serif transition-colors group-hover:text-brand-blue">知微探界</span>
-                <span
-                    class="text-sm text-slate-400 font-sans hidden md:inline-block border-l border-slate-200 pl-3 ml-1">新一代企业
-                    AI 经营分析大脑</span>
-            </div>
-
-            <!-- Central Tabs -->
-            <div
-                class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center bg-slate-100 p-1 rounded-lg border border-slate-200">
-                <button onclick="switchTab('core')" id="btn-core"
-                    class="tab-btn active px-6 py-1.5 rounded-md text-sm font-medium transition-all bg-white shadow-sm text-brand-blue">核心能力</button>
-                <button onclick="switchTab('dashboard')" id="btn-dashboard"
-                    class="tab-btn px-6 py-1.5 rounded-md text-sm font-medium transition-all text-slate-500 hover:text-brand-blue">经营看板</button>
-                <button onclick="switchTab('report')" id="btn-report"
-                    class="tab-btn px-6 py-1.5 rounded-md text-sm font-medium transition-all text-slate-500 hover:text-brand-blue">战略报告</button>
-            </div>
-
-            <!-- Actions (Placeholder for future actions if needed) -->
-            <div class="flex items-center gap-4">
-                <!-- Removed mock buttons per user request -->
-            </div>
-        </div>
-    </nav>
-
-    <!-- TAB 1: 核心能力 (Core Capabilities) -->
-    <div id="tab-core" class="tab-content active pb-20">
+    <!-- 核心能力 -->
+    <div class="pb-20">
 
         <!-- Hero Section -->
         <section class="relative pt-24 pb-20 px-6 overflow-hidden">
@@ -273,34 +37,31 @@
             </div>
 
             <div class="max-w-4xl mx-auto text-center">
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-brand-pale text-brand-blue shadow-sm shadow-brand-pale/50 text-xs font-semibold tracking-wide mb-8 transition-transform hover:scale-105 hover:border-brand-light">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-mid"></i>
-                    <span>AI 驱动的经营决策智能</span>
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-mid opacity-0"></i> <!-- 占位平衡 -->
-                </div>
-                <h1
-                    class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-brand-navy leading-tight tracking-tight mb-8">
+
+                <h1 class="hero-animate text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-brand-navy leading-tight tracking-tight mb-8"
+                    style="animation-delay: 0.3s">
                     智于洞察<br />简于经营
                 </h1>
-                <p class="text-lg text-slate-600 mb-10 max-w-2xl mx-auto">
-                    打破数据孤岛与分析时滞。我们将静态的报表汇报，重塑为流动的智能洞察。<br />让每一次经营决策，都拥有深度的财务逻辑与数据穿透。
+                <p class="hero-animate text-lg text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed"
+                    style="animation-delay: 0.5s">
+                    我们重新定义了经营洞察到达决策者的路径——不再经由层层整理与逐级汇报，<br class="hidden md:block" />而是由 AI 实时完成全链路分析，将经营结论以最短路径直达决策层。
                 </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <button onclick="switchTab('dashboard')"
-                        class="bg-brand-blue text-white px-8 py-3 rounded-xl text-sm font-semibold hover:bg-brand-mid transition-all shadow-lg shadow-brand-blue/30 hover:-translate-y-0.5">
+                <div class="hero-animate flex flex-col sm:flex-row items-center justify-center gap-4"
+                    style="animation-delay: 0.65s">
+                    <a href="dashboard.html"
+                        class="inline-block bg-brand-blue text-white px-8 py-3 rounded-xl text-sm font-semibold hover:bg-brand-mid transition-all shadow-lg shadow-brand-blue/30 hover:-translate-y-0.5">
                         查看实时看板
-                    </button>
-                    <button onclick="switchTab('report')"
-                        class="bg-white text-brand-navy border border-slate-200 px-8 py-3 rounded-xl text-sm font-medium hover:bg-slate-50 transition-all shadow-sm hover:-translate-y-0.5">
+                    </a>
+                    <a href="report.html"
+                        class="inline-block bg-white text-brand-navy border border-slate-200 px-8 py-3 rounded-xl text-sm font-medium hover:bg-slate-50 transition-all shadow-sm hover:-translate-y-0.5">
                         获取深度报告
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- Scenario 1 -->
-        <section class="py-16 px-6">
+        <section class="py-16 px-6 animate-on-scroll">
             <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
                 <div class="lg:w-5/12">
                     <div
@@ -308,13 +69,13 @@
                         <i data-lucide="bell-ring" class="w-6 h-6"></i>
                     </div>
                     <h2 class="text-3xl font-serif font-bold text-brand-navy mb-4">场景 <span
-                            class="font-sans">01</span>：数据主动寻找管理层</h2>
-                    <h3 class="text-xl text-slate-800 font-medium mb-4">从“人找数”变为“结论找人”</h3>
+                            class="font-sans">01</span>：经营全局，已在眼前</h2>
+                    <h3 class="text-xl text-slate-800 font-medium mb-4">不再等汇报，AI 自动推送经营早报</h3>
                     <div class="space-y-4 mb-6">
                         <div class="flex gap-3">
                             <div class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0"></div>
                             <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-slate-800">痛点：</strong>管理者往往在“找数据”上耗费精力，依赖人工制作层层递交的静态报表。当看到结论时，最佳决策窗口往往已经关闭，响应时滞极大。
+                                    class="text-slate-800">痛点：</strong>管理者往往在"找数据"上耗费精力，依赖人工制作层层递交的静态报表。当看到结论时，最佳决策窗口往往已经关闭，响应时滞极大。
                             </p>
                         </div>
                         <div class="flex gap-3">
@@ -327,7 +88,7 @@
                             <div class="w-1.5 h-1.5 rounded-full bg-brand-blue mt-2 shrink-0"></div>
                             <p class="text-sm text-slate-600 leading-relaxed"><strong
                                     class="text-brand-navy">价值：</strong>每天清晨，浓缩的经营早报与可视化看板主动推送至桌面。将静态汇报转化为流动的洞察，真正实现从<span
-                                    class="font-semibold text-brand-navy">“人找数”变为“结论找人”</span>。</p>
+                                    class="font-semibold text-brand-navy">"人找数"变为"结论找人"</span>。</p>
                         </div>
                     </div>
                     <ul class="space-y-3 mb-8">
@@ -340,29 +101,27 @@
                             <span>自动识别局部表现（如西部领跑、中部承压）。</span>
                         </li>
                     </ul>
-                    <button onclick="switchTab('dashboard')"
-                        class="text-brand-blue font-medium text-sm flex items-center gap-2 hover:text-brand-navy">
+                    <a href="dashboard.html"
+                        class="text-brand-blue font-medium text-sm inline-flex items-center gap-2 hover:text-brand-navy">
                         跳转交互式经营看板 <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
+                    </a>
                 </div>
                 <div class="lg:w-7/12">
                     <div class="glass-img-container p-2 bg-white relative">
                         <img src="pic/场景1.png" alt="经营早报推送场景"
                             class="w-full rounded-lg shadow-sm border border-slate-100">
-
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Scenario 2 -->
-        <section class="py-16 px-6 bg-white/50 border-y border-slate-200/50">
+        <section class="py-16 px-6 bg-white/50 border-y border-slate-200/50 animate-on-scroll">
             <div class="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-16">
                 <div class="lg:w-7/12">
                     <div class="glass-img-container p-2 bg-white relative">
                         <img src="pic/场景2.png" alt="实时下钻分析场景"
                             class="w-full rounded-lg shadow-sm border border-slate-100">
-
                     </div>
                 </div>
                 <div class="lg:w-5/12">
@@ -371,8 +130,8 @@
                         <i data-lucide="message-square-dashed" class="w-6 h-6"></i>
                     </div>
                     <h2 class="text-3xl font-serif font-bold text-brand-navy mb-4">场景 <span
-                            class="font-sans">02</span>：跨越汇报层级的即时洞察</h2>
-                    <h3 class="text-xl text-slate-800 font-medium mb-4">实时诊脉，穿透业务黑盒</h3>
+                            class="font-sans">02</span>：穿透业务黑盒的即时对话</h2>
+                    <h3 class="text-xl text-slate-800 font-medium mb-4">利润为什么降了？一句话追问到底</h3>
                     <div class="space-y-4 mb-6">
                         <div class="flex gap-3">
                             <div class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0"></div>
@@ -384,41 +143,41 @@
                             <div class="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2 shrink-0"></div>
                             <p class="text-sm text-slate-600 leading-relaxed"><strong
                                     class="text-brand-navy">破局：</strong>只需向 AI
-                                发起实时追问，模型即刻下钻多重维度（如地区、折扣率区间），在一秒内层层剥离出“亏损黑盒”中的内核原因。</p>
+                                发起实时追问，模型即刻下钻多重维度（如地区、折扣率区间），在一秒内层层剥离出"亏损黑盒"中的内核原因。</p>
                         </div>
                         <div class="flex gap-3">
                             <div class="w-1.5 h-1.5 rounded-full bg-orange-600 mt-2 shrink-0"></div>
                             <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-brand-navy">价值：</strong>不只停留在浅层展示数据，而是直接穿透至“折扣失控”等具体业务动作，并给出<span
+                                    class="text-brand-navy">价值：</strong>不只停留在浅层展示数据，而是直接穿透至"折扣失控"等具体业务动作，并给出<span
                                     class="font-semibold text-brand-navy">可执行的干预建议</span>，实现跨越层级的即时诊断。</p>
                         </div>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
                         <div class="text-sm text-slate-500 mb-2">管理者：</div>
-                        <div class="text-brand-navy font-medium">“桌子品类亏损具体什么原因？”</div>
+                        <div class="text-brand-navy font-medium">"桌子品类亏损具体什么原因？"</div>
                         <div class="my-3 border-t border-slate-200"></div>
                         <div class="text-sm text-slate-500 mb-2">AI 分析师：</div>
-                        <div class="text-slate-700 text-sm">“核心原因：折扣失控。建议设置 20% 折扣上限进行干预。”</div>
+                        <div class="text-slate-700 text-sm">"核心原因：折扣失控。建议设置 20% 折扣上限进行干预。"</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Scenario 3 -->
-        <section class="py-16 px-6">
+        <section class="py-16 px-6 animate-on-scroll">
             <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
                 <div class="lg:w-5/12">
                     <div class="w-12 h-12 rounded-xl bg-brand-navy flex items-center justify-center mb-6 text-white">
                         <i data-lucide="file-pie-chart" class="w-6 h-6"></i>
                     </div>
                     <h2 class="text-3xl font-serif font-bold text-brand-navy mb-4">场景 <span
-                            class="font-sans">03</span>：敏捷建模与战略级交付</h2>
-                    <h3 class="text-xl text-slate-800 font-medium mb-4">由数据驱动的战略决断</h3>
+                            class="font-sans">03</span>：从管理直觉到战略决断</h2>
+                    <h3 class="text-xl text-slate-800 font-medium mb-4">验证您的灵感，一键生成深度报告</h3>
                     <div class="space-y-4 mb-6">
                         <div class="flex gap-3">
                             <div class="w-1.5 h-1.5 rounded-full bg-slate-300 mt-2 shrink-0"></div>
                             <p class="text-sm text-slate-600 leading-relaxed"><strong
-                                    class="text-slate-800">痛点：</strong>战略决策常依赖模糊的“业务直觉”，其量化验证往往需要分析师耗费数天测算；且零散的对话记录难以形成高规格的正式文件供决策层流转。
+                                    class="text-slate-800">痛点：</strong>战略决策常依赖模糊的"业务直觉"，其量化验证往往需要分析师耗费数天测算；且零散的对话记录难以形成高规格的正式文件供决策层流转。
                             </p>
                         </div>
                         <div class="flex gap-3">
@@ -444,10 +203,10 @@
                             <span>一键生成格式化的高管参阅汇报文档。</span>
                         </li>
                     </ul>
-                    <button onclick="switchTab('report')"
-                        class="text-brand-blue font-medium text-sm flex items-center gap-2 hover:text-brand-navy">
+                    <a href="report.html"
+                        class="text-brand-blue font-medium text-sm inline-flex items-center gap-2 hover:text-brand-navy">
                         浏览完整版生成的数字报告 <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
+                    </a>
                 </div>
                 <div class="lg:w-7/12">
                     <div class="glass-img-container p-2 bg-white relative">
@@ -459,9 +218,9 @@
         </section>
 
         <!-- Security Badge -->
-        <section class="max-w-4xl mx-auto px-6 py-12">
+        <section class="max-w-4xl mx-auto px-6 py-12 animate-on-scroll">
             <div
-                class="glass-card rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden group">
+                class="glass-card no-lift rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden group">
                 <!-- 底部微光 -->
                 <div
                     class="absolute -right-10 -bottom-10 w-40 h-40 bg-brand-tint rounded-full blur-3xl group-hover:bg-brand-pale transition-colors duration-500 -z-10">
@@ -484,730 +243,7 @@
         </section>
     </div>
 
-    <!-- TAB 2: 经营看板 (Interactive Dashboard) -->
-    <div id="tab-dashboard" class="tab-content pt-4">
-        <div class="max-w-[1400px] mx-auto px-4 pb-6">
-            <div
-                class="bg-brand-tint text-brand-navy px-4 py-2 rounded-t-lg text-sm flex items-center gap-2 font-medium border border-brand-pale border-b-0">
-                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                自动生成的交互式经营看板
-            </div>
-            <div class="bg-white rounded-b-lg shadow-lg border border-slate-200 overflow-x-auto iframe-container h-[calc(100vh-140px)]"
-                style="-webkit-overflow-scrolling: touch;">
-                <!-- Using an iframe to render the dashboard file -->
-                <iframe src="superstore_dashboard.html" title="Superstore Dashboard"
-                    class="w-full h-full border-0 min-w-[1200px]"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAB 3: 战略报告 (Executive Report) -->
-    <div id="tab-report" class="tab-content">
-        <div class="max-w-4xl mx-auto py-8 px-6 pb-20">
-            <div class="glass-card bg-white rounded-xl p-8 md:p-12 shadow-sm border border-slate-200 report-content">
-
-                <!-- AI Download CTA Card -->
-                <div
-                    class="mb-10 p-6 bg-brand-tint/60 border border-brand-pale rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 group transition-all duration-300 hover:shadow-md">
-                    <div class="flex-1 text-left">
-                        <h4 class="text-lg font-bold text-brand-navy mb-3">AI 智能内核驱动的专业报告</h4>
-                        <ul class="space-y-3 text-sm text-slate-600 !pl-0 !list-none !mb-0">
-                            <li class="flex items-start gap-3">
-                                <div
-                                    class="w-5 h-5 shrink-0 rounded-md bg-brand-blue/10 text-brand-blue font-mono text-xs font-bold flex items-center justify-center mt-0.5 shadow-sm">
-                                    1</div>
-                                <span class="leading-relaxed">依托对 <span
-                                        class="font-mono font-bold text-brand-navy">上万</span>
-                                    笔真实底层数据的深层穿透，让您的业务洞察拥有数据底气。</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <div
-                                    class="w-5 h-5 shrink-0 rounded-md bg-brand-blue/10 text-brand-blue font-mono text-xs font-bold flex items-center justify-center mt-0.5 shadow-sm">
-                                    2</div>
-                                <span class="leading-relaxed">紧密结合您的实战经验，对战略假设进行量化分析，提供坚实的数据支撑。</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <div
-                                    class="w-5 h-5 shrink-0 rounded-md bg-brand-blue/10 text-brand-blue font-mono text-xs font-bold flex items-center justify-center mt-0.5 shadow-sm">
-                                    3</div>
-                                <span class="leading-relaxed">一键生成 <span
-                                        class="font-semibold text-brand-navy">严格符合公司标准排版与行文规范</span> 的高规格 Word
-                                    报告。</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <a href="superstore_executive_report.docx" download="知微探界-Superstore全景盈利能力与战略诊断报告.docx"
-                        class="flex items-center gap-3 bg-brand-navy text-white px-8 py-4 rounded-xl hover:bg-brand-blue transition-all shadow-[0_4px_12px_rgba(28,52,97,0.15)] hover:shadow-[0_8px_24px_rgba(43,78,158,0.25)] active:scale-95 whitespace-nowrap group/btn">
-                        <div class="p-1.5 bg-white/20 rounded-lg group-hover/btn:rotate-12 transition-transform">
-                            <i data-lucide="file-down" class="w-5 h-5 text-white"></i>
-                        </div>
-                        <div class="text-left">
-                            <div class="text-[10px] opacity-70 leading-none mb-1">Standard Word Doc</div>
-                            <div class="font-bold text-base leading-none">导出完整报告</div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="text-center mb-10 border-b border-n300 pb-8">
-                    <h1 class="text-3xl font-serif text-brand-navy font-bold mb-4">穿透增长迷雾：全景盈利能力与战略诊断</h1>
-                    <p class="text-slate-500 italic text-sm">基于 9,994 笔交易数据的利润源泉重估与破局路径解码</p>
-                </div>
-                <h2>执行摘要</h2>
-                <div class="callout">
-                    <p>本报告围绕三个核心战略问题展开深度数据分析。总体而言，<strong>SuperStore</strong>
-                        的整体经营存在明显的结构性矛盾：公司在追求规模的同时，部分业务正在系统性地消耗利润。数据显示，三大问题相互关联，根源在于<strong
-                            class="highlight-red">折扣政策失控</strong>与<strong class="highlight-red">品类战略错位</strong>。</p>
-                </div>
-
-                <h3>核心发现</h3>
-                <ul>
-                    <li><strong>问题一：家具品类陷阱</strong> —— “桌子”子品类累计核心亏损达 <strong class="highlight-red">-$17,725</strong>。
-                    </li>
-                    <li><strong>问题二：折扣是利润杀手</strong> —— 当折扣率超过 20% 时，平均单笔利润骤降至负值。</li>
-                    <li><strong>问题三：客户结构误判</strong> —— “家庭办公”客户群虽然体量最小，但利润率最高。</li>
-                </ul>
-
-                <h2>问题一：我们在哪里赚钱，在哪里烧钱？</h2>
-                <p>公司长期将销售额作为核心考核指标，但销售额的增长并不总是转化为利润。</p>
-
-                <h3>1.1 品类层面：科技类是核心引擎</h3>
-                <div class="overflow-x-auto pb-2">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th class="whitespace-nowrap">品类</th>
-                                <th class="whitespace-nowrap">总销售额</th>
-                                <th class="whitespace-nowrap">总利润</th>
-                                <th class="whitespace-nowrap">利润率</th>
-                                <th class="whitespace-nowrap">评估</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>科技类</strong></td>
-                                <td class="whitespace-nowrap">$836,154</td>
-                                <td class="whitespace-nowrap">$145,455</td>
-                                <td class="highlight-green whitespace-nowrap">17.4%</td>
-                                <td class="whitespace-nowrap">核心利润来源</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>办公用品类</strong></td>
-                                <td class="whitespace-nowrap">$719,047</td>
-                                <td class="whitespace-nowrap">$122,491</td>
-                                <td class="highlight-green whitespace-nowrap">17.0%</td>
-                                <td class="whitespace-nowrap">高效稳定</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>家具类</strong></td>
-                                <td class="whitespace-nowrap">$741,999</td>
-                                <td class="whitespace-nowrap">$18,451</td>
-                                <td class="highlight-red whitespace-nowrap">2.5%</td>
-                                <td class="whitespace-nowrap">规模大但低效</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p><strong>分析</strong>：家具类虽然贡献了约 $742K 的销售额，但利润率极低，几乎处于盈亏平衡线，不仅不赚钱，还占用了大量物流与仓储资源。</p>
-
-                <h3>1.2 子品类层面：三个明确的亏损黑洞</h3>
-                <p>当我们穿透品类看子品类时，问题变得更加尖锐。以下三个子品类的销售额均不低，但全部处于亏损状态：</p>
-
-                <div class="overflow-x-auto pb-2">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th class="whitespace-nowrap">子品类</th>
-                                <th class="whitespace-nowrap">所属品类</th>
-                                <th class="whitespace-nowrap">总销售额</th>
-                                <th class="whitespace-nowrap">总利润</th>
-                                <th class="whitespace-nowrap">利润率</th>
-                                <th class="whitespace-nowrap">订单数</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>桌子</strong></td>
-                                <td class="whitespace-nowrap">家具类</td>
-                                <td class="whitespace-nowrap">$206,966</td>
-                                <td class="highlight-red whitespace-nowrap">-$17,725</td>
-                                <td class="highlight-red whitespace-nowrap">-8.6%</td>
-                                <td class="whitespace-nowrap">319</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>书柜</strong></td>
-                                <td class="whitespace-nowrap">家具类</td>
-                                <td class="whitespace-nowrap">$114,880</td>
-                                <td class="highlight-red whitespace-nowrap">-$3,473</td>
-                                <td class="highlight-red whitespace-nowrap">-3.0%</td>
-                                <td class="whitespace-nowrap">228</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>耗材</strong></td>
-                                <td class="whitespace-nowrap">办公用品类</td>
-                                <td class="whitespace-nowrap">$46,674</td>
-                                <td class="highlight-red whitespace-nowrap">-$1,189</td>
-                                <td class="highlight-red whitespace-nowrap">-2.5%</td>
-                                <td class="whitespace-nowrap">190</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="callout-warning">
-                    <div class="flex items-center gap-2 mb-2">
-                        <i data-lucide="alert-triangle" class="w-5 h-5 text-orange-600"></i>
-                        <strong class="text-orange-800">关键洞察：</strong>
-                    </div>
-                    <p class="text-orange-900 mb-0">桌子子品类每产生 $1 销售额实际亏损 8.6 分。这不是边际问题，而是结构性定价或成本问题。319
-                        笔订单意味着我们正在系统性地、重复性地亏钱。</p>
-                </div>
-
-                <p><strong>与此形成鲜明对比的是利润率最高的子品类：</strong></p>
-
-                <div class="overflow-x-auto pb-2">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th class="whitespace-nowrap">子品类</th>
-                                <th class="whitespace-nowrap">所属品类</th>
-                                <th class="whitespace-nowrap">总销售额</th>
-                                <th class="whitespace-nowrap">总利润</th>
-                                <th class="whitespace-nowrap">利润率</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>标签</strong></td>
-                                <td class="whitespace-nowrap">办公用品类</td>
-                                <td class="whitespace-nowrap">$12,486</td>
-                                <td class="whitespace-nowrap">$5,546</td>
-                                <td class="highlight-green whitespace-nowrap">44.4%</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>纸张</strong></td>
-                                <td class="whitespace-nowrap">办公用品类</td>
-                                <td class="whitespace-nowrap">$78,479</td>
-                                <td class="whitespace-nowrap">$34,054</td>
-                                <td class="highlight-green whitespace-nowrap">43.4%</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>信封</strong></td>
-                                <td class="whitespace-nowrap">办公用品类</td>
-                                <td class="whitespace-nowrap">$16,476</td>
-                                <td class="whitespace-nowrap">$6,964</td>
-                                <td class="highlight-green whitespace-nowrap">42.3%</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>复印机</strong></td>
-                                <td class="whitespace-nowrap">科技类</td>
-                                <td class="whitespace-nowrap">$149,528</td>
-                                <td class="whitespace-nowrap">$55,618</td>
-                                <td class="highlight-green whitespace-nowrap">37.2%</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>配件</strong></td>
-                                <td class="whitespace-nowrap">科技类</td>
-                                <td class="whitespace-nowrap">$167,380</td>
-                                <td class="whitespace-nowrap">$41,937</td>
-                                <td class="highlight-green whitespace-nowrap">25.1%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p>值得注意的是，<strong>机器设备</strong>（科技品类，$189K 销售额）的利润率只有 <strong>1.79%</strong> ——
-                    虽然没有亏损，但几乎不创造价值，且每笔订单金额巨大，资金占用成本不容忽视。</p>
-
-                <h3>1.3 高管结论</h3>
-                <div class="bg-brand-tint border border-brand-pale rounded-lg p-5 mt-4">
-                    <ul class="list-disc pl-5 space-y-2 text-slate-800">
-                        <li><strong>必须停止将 桌子、书柜 视为正常业务。建议启动专项审查：是否应该大幅提价、削减折扣，或直接考虑退出这两个子品类。</strong></li>
-                        <li><strong>科技类</strong> 品类，尤其是 <strong>复印机</strong> 和 <strong>配件</strong>，是公司真正的利润来源，资源配置应向其倾斜。
-                        </li>
-                        <li><strong>办公用品类</strong> 虽然单价低，但利润率极高，属于被低估的优质业务。</li>
-                        <li>建议将子品类利润率纳入销售团队的核心 <strong>关键绩效指标 (KPI)</strong> 体系，而非仅考核销售额。</li>
-                    </ul>
-                </div>
-
-                <h2>问题二：我们的折扣政策在帮助业务还是伤害它？</h2>
-                <p>长期以来，我怀疑销售团队在过度使用折扣权限。给客户折扣是为了促成交易，但如果折扣本身导致亏损，那这笔交易就没有意义。数据现在给出了明确答案。</p>
-
-                <h3>2.1 折扣与利润的关系：存在明确断崖</h3>
-                <div class="overflow-x-auto pb-2">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th class="whitespace-nowrap">折扣区间</th>
-                                <th class="whitespace-nowrap">订单数</th>
-                                <th class="whitespace-nowrap">总利润</th>
-                                <th class="whitespace-nowrap">平均单笔利润</th>
-                                <th class="whitespace-nowrap">利润率</th>
-                                <th class="whitespace-nowrap">判断</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>0% (无折扣)</strong></td>
-                                <td class="whitespace-nowrap">4,798</td>
-                                <td class="whitespace-nowrap">$320,988</td>
-                                <td class="whitespace-nowrap">$66.90</td>
-                                <td class="highlight-green whitespace-nowrap">29.5%</td>
-                                <td class="whitespace-nowrap">强盈利</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>1-10%</strong></td>
-                                <td class="whitespace-nowrap">94</td>
-                                <td class="whitespace-nowrap">$9,029</td>
-                                <td class="whitespace-nowrap">$96.06</td>
-                                <td class="highlight-green whitespace-nowrap">16.6%</td>
-                                <td class="whitespace-nowrap">尚可</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>11-20%</strong></td>
-                                <td class="whitespace-nowrap">3,709</td>
-                                <td class="whitespace-nowrap">$91,756</td>
-                                <td class="whitespace-nowrap">$24.74</td>
-                                <td class="highlight-green whitespace-nowrap">11.6%</td>
-                                <td class="whitespace-nowrap">警惕</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>21-30%</strong></td>
-                                <td class="whitespace-nowrap">227</td>
-                                <td class="highlight-red whitespace-nowrap">-$10,369</td>
-                                <td class="highlight-red whitespace-nowrap">-$45.68</td>
-                                <td class="highlight-red whitespace-nowrap">-10.1%</td>
-                                <td class="whitespace-nowrap">亏损</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>31-40%</strong></td>
-                                <td class="whitespace-nowrap">233</td>
-                                <td class="highlight-red whitespace-nowrap">-$25,448</td>
-                                <td class="highlight-red whitespace-nowrap">-$109.22</td>
-                                <td class="highlight-red whitespace-nowrap">-19.4%</td>
-                                <td class="whitespace-nowrap">严重亏损</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>41%+</strong></td>
-                                <td class="whitespace-nowrap">933</td>
-                                <td class="highlight-red whitespace-nowrap">-$99,559</td>
-                                <td class="highlight-red whitespace-nowrap">-$106.71</td>
-                                <td class="highlight-red whitespace-nowrap">-77.4%</td>
-                                <td class="whitespace-nowrap">灾难性亏损</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="callout-warning mb-6">
-                    <p class="mb-0 text-orange-900">📌 <strong>核心发现：</strong> 折扣超过 <strong>20%</strong>
-                        是明确的盈利断崖。无折扣订单的利润率高达 <strong>29.5%</strong>，而 <strong>20%</strong> 以上折扣的订单全部陷入亏损。1,393
-                        笔高折扣订单合计亏损超过 <strong>$135,000</strong>，几乎抵消了公司近半的利润。</p>
-                </div>
-                <p>更令人担忧的是，<strong>41%</strong> 以上的超高折扣订单共 <strong>933</strong> 笔，平均每笔亏损 <strong>$106.71</strong>，合计亏损近
-                    <strong>$100,000</strong>。这些订单究竟是谁批准的？依据是什么？
-                </p>
-
-                <h3>2.2 哪个地区的折扣使用最激进？</h3>
-                <div class="overflow-x-auto pb-2">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th class="whitespace-nowrap">地区</th>
-                                <th class="whitespace-nowrap">平均折扣率</th>
-                                <th class="whitespace-nowrap">超 20%折扣订单占比</th>
-                                <th class="whitespace-nowrap">整体利润率</th>
-                                <th class="whitespace-nowrap">评估</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>中部地区</strong></td>
-                                <td class="highlight-red whitespace-nowrap">24.0%</td>
-                                <td class="highlight-red whitespace-nowrap">27.7%</td>
-                                <td class="highlight-red whitespace-nowrap">7.9%</td>
-                                <td class="whitespace-nowrap"><strong>问题最严重</strong></td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap">南部地区</td>
-                                <td class="whitespace-nowrap">14.7%</td>
-                                <td class="whitespace-nowrap">10.6%</td>
-                                <td class="whitespace-nowrap">11.9%</td>
-                                <td class="whitespace-nowrap">中等风险</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap">东部地区</td>
-                                <td class="whitespace-nowrap">14.5%</td>
-                                <td class="whitespace-nowrap">16.2%</td>
-                                <td class="whitespace-nowrap">13.5%</td>
-                                <td class="whitespace-nowrap">偏高</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap">西部地区</td>
-                                <td class="whitespace-nowrap">10.9%</td>
-                                <td class="whitespace-nowrap">3.7%</td>
-                                <td class="whitespace-nowrap">14.9%</td>
-                                <td class="whitespace-nowrap">相对健康</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p>中部地区的问题触目惊心：平均折扣高达 <strong>24%</strong>，近三成订单折扣超过 <strong>20%</strong>，导致整体利润率只有
-                    <strong>7.9%</strong>，仅为西部地区的一半。这不是市场竞争环境造成的，而是折扣纪律崩溃的结果。
-                </p>
-
-                <h3>2.3 哪个品类的折扣最泛滥？</h3>
-                <div class="overflow-x-auto pb-2">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th class="whitespace-nowrap">品类</th>
-                                <th class="whitespace-nowrap">平均折扣率</th>
-                                <th class="whitespace-nowrap">超 20%折扣订单占比</th>
-                                <th class="whitespace-nowrap">整体利润率</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>家具类</strong></td>
-                                <td class="highlight-red whitespace-nowrap">17.4%</td>
-                                <td class="highlight-red whitespace-nowrap">25.6%</td>
-                                <td class="highlight-red whitespace-nowrap">2.5%</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap">办公用品类</td>
-                                <td class="whitespace-nowrap">15.7%</td>
-                                <td class="whitespace-nowrap">11.3%</td>
-                                <td class="highlight-green whitespace-nowrap">17.0%</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap">科技类</td>
-                                <td class="whitespace-nowrap">13.2%</td>
-                                <td class="whitespace-nowrap">9.3%</td>
-                                <td class="highlight-green whitespace-nowrap">17.4%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p>家具品类同时面临两个困境：产品本身利润率低，同时折扣使用率最高。<strong>25.6%</strong> 的家具订单折扣超过
-                    <strong>20%</strong>，这两个问题叠加，导致家具品类的利润率被压缩到仅 <strong>2.5%</strong>。这绝非偶然，而是系统性问题。
-                </p>
-
-                <h3>2.4 高管结论</h3>
-                <div class="bg-brand-tint border border-brand-pale rounded-lg p-5 mt-4">
-                    <ul class="list-disc pl-5 space-y-2 text-slate-800">
-                        <li><strong>立即设定折扣审批上限政策：20% 以下由销售人员自主决定，20%-30% 须经区域经理审批，30% 以上须经副总裁审批。</strong></li>
-                        <li>对 <strong>中部</strong> 地区进行专项审计，彻查高折扣订单的批准流程和依据。</li>
-                        <li>将折扣纪律指标纳入区域经理的季度绩效考核，与利润率直接挂钩。</li>
-                        <li>家具品类的折扣权限应单独收紧，因为该品类本身利润空间极小，任何折扣都会导致亏损。</li>
-                    </ul>
-                </div>
-
-                <h2>问题三：我们的大客户真的更有价值吗？</h2>
-                <p>我们的销售团队长期重视 <strong>企业客户</strong>，认为其订单金额大、关系稳定，是优质客户群。<strong>消费者</strong>
-                    群体体量最大，但我一直怀疑其价值被高估了。数据揭示了一个出乎意料的结论。</p>
-
-                <h3>3.1 三类客户的全面对比</h3>
-                <div class="overflow-x-auto pb-2">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th class="whitespace-nowrap">客户细分</th>
-                                <th class="whitespace-nowrap">订单数</th>
-                                <th class="whitespace-nowrap">平均订单金额</th>
-                                <th class="whitespace-nowrap">总销售额</th>
-                                <th class="whitespace-nowrap">总利润</th>
-                                <th class="whitespace-nowrap">利润率</th>
-                                <th class="whitespace-nowrap">平均折扣</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>家庭办公</strong></td>
-                                <td class="whitespace-nowrap">1,783</td>
-                                <td class="whitespace-nowrap">$241</td>
-                                <td class="whitespace-nowrap">$429,653</td>
-                                <td class="whitespace-nowrap">$60,299</td>
-                                <td class="highlight-green whitespace-nowrap">14.0%</td>
-                                <td class="whitespace-nowrap">14.7%</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap">企业客户</td>
-                                <td class="whitespace-nowrap">3,020</td>
-                                <td class="whitespace-nowrap">$234</td>
-                                <td class="whitespace-nowrap">$706,146</td>
-                                <td class="whitespace-nowrap">$91,979</td>
-                                <td class="highlight-green whitespace-nowrap">13.0%</td>
-                                <td class="whitespace-nowrap">15.8%</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap">消费者</td>
-                                <td class="whitespace-nowrap">5,191</td>
-                                <td class="whitespace-nowrap">$224</td>
-                                <td class="whitespace-nowrap">$1,161,401</td>
-                                <td class="whitespace-nowrap">$134,119</td>
-                                <td class="highlight-red whitespace-nowrap">11.5%</td>
-                                <td class="whitespace-nowrap">15.8%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="callout-warning mb-6">
-                    <p class="mb-0 text-orange-900">💡 <strong>反直觉发现：</strong>
-                        <strong>家庭办公</strong>客户群虽然体量最小，利润率却最高（<strong>14.0%</strong>）。消费者群体订单量最多，但利润率最低（<strong>11.5%</strong>）。我们的资源配置可能长期以来存在错误的优先级。
-                    </p>
-                </div>
-
-                <h3>3.2 穿透到品类：家具是所有客户群的利润陷阱</h3>
-                <p>家具品类在所有三类客户中都是利润率最低的业务，<strong>消费者</strong> 购买家具的利润率仅
-                    <strong>1.8%</strong>。值得注意的是，<strong>家庭办公</strong> 客户购买 <strong>办公用品类</strong> 的利润率高达
-                    <strong>20.8%</strong>，是所有细分中最高的。
-                </p>
-
-                <h3>3.3 地区维度：东部区的家庭办公是隐藏的金矿</h3>
-                <div class="overflow-x-auto pb-2">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th class="whitespace-nowrap">客户细分</th>
-                                <th class="whitespace-nowrap">地区</th>
-                                <th class="whitespace-nowrap">总利润</th>
-                                <th class="whitespace-nowrap">利润率</th>
-                                <th class="whitespace-nowrap">备注</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="whitespace-nowrap"><strong>家庭办公</strong></td>
-                                <td class="whitespace-nowrap"><strong>东部</strong></td>
-                                <td class="whitespace-nowrap"><strong>$26,709</strong></td>
-                                <td class="highlight-green whitespace-nowrap">21.0%</td>
-                                <td class="whitespace-nowrap"><strong>最高利润率组合</strong></td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap">消费者</td>
-                                <td class="whitespace-nowrap">西部</td>
-                                <td class="whitespace-nowrap">$57,451</td>
-                                <td class="highlight-green whitespace-nowrap">15.8%</td>
-                                <td class="whitespace-nowrap">规模最大且健康</td>
-                            </tr>
-                            <tr>
-                                <td class="whitespace-nowrap">家庭办公</td>
-                                <td class="whitespace-nowrap">南部</td>
-                                <td class="whitespace-nowrap">$4,621</td>
-                                <td class="highlight-red whitespace-nowrap">6.2%</td>
-                                <td class="whitespace-nowrap">低效</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p>东部区的家庭办公客户利润率高达 <strong>21.0%</strong>，是所有细分组合中最高的。然而，从销售团队的关注度和资源投入来看，这个群体很可能是最被忽视的。</p>
-
-                <h3>3.4 高管结论</h3>
-                <div class="bg-brand-tint border border-brand-pale rounded-lg p-5 mt-4">
-                    <ul class="list-disc pl-5 space-y-2 text-slate-800">
-                        <li><strong>重新评估客户战略优先级：家庭办公 客户群应从资源边缘提升至战略重点，尤其是东部和中部区域。</strong></li>
-                        <li>针对性优化 <strong>消费者</strong> 群体的购买结构，而非一刀切地削减资源。</li>
-                        <li>建议为 <strong>家庭办公</strong> 客户设计专属的 <strong>办公用品类</strong> 套餐或订阅服务（利润率高达
-                            <strong>20.8%</strong>）。
-                        </li>
-                        <li>引导 <strong>企业客户</strong> 向 <strong>科技类</strong> 和 <strong>办公用品类</strong> 采购，避免低利润的家具订单占比过高。
-                        </li>
-                    </ul>
-                </div>
-
-                <h2>综合行动建议</h2>
-                <p>三个问题的数据分析最终指向同一个核心矛盾：公司在追求规模和市场覆盖的过程中，系统性地牺牲了利润质量。以下是我认为优先级最高的五项行动：</p>
-                <div class="overflow-x-auto pb-2">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th class="whitespace-nowrap">优先级</th>
-                                <th class="min-w-[300px]">行动项</th>
-                                <th class="whitespace-nowrap">时间框架</th>
-                                <th class="whitespace-nowrap">预期影响</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="font-bold text-red-600 whitespace-nowrap">优先级一</td>
-                                <td>立即启动折扣审批分级制度，<strong>20%</strong> 为硬性红线，超出须逐级审批</td>
-                                <td class="whitespace-nowrap">30 天内</td>
-                                <td class="font-bold whitespace-nowrap">高</td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold text-red-600 whitespace-nowrap">优先级二</td>
-                                <td>对桌子、书柜品类进行定价重审，考虑退出或大幅提价</td>
-                                <td class="whitespace-nowrap">60 天内</td>
-                                <td class="font-bold whitespace-nowrap">高</td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold text-orange-600 whitespace-nowrap">优先级三</td>
-                                <td>对中部地区进行折扣使用专项审计，追责并重建规则</td>
-                                <td class="whitespace-nowrap">45 天内</td>
-                                <td class="font-bold whitespace-nowrap">中</td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold text-orange-600 whitespace-nowrap">优先级四</td>
-                                <td>制定家庭办公客户专属增长计划，尤其聚焦东部地区</td>
-                                <td class="whitespace-nowrap">季度内</td>
-                                <td class="font-bold whitespace-nowrap">中</td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold text-orange-600 whitespace-nowrap">优先级五</td>
-                                <td>将子品类利润率纳入销售团队关键绩效指标，与折扣权限直接挂钩</td>
-                                <td class="whitespace-nowrap">季度内</td>
-                                <td class="font-bold whitespace-nowrap">中</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div
-                    class="mt-8 text-center px-6 py-8 bg-slate-900 rounded-xl text-white shadow-lg relative overflow-hidden">
-                    <div class="absolute inset-0 bg-brand-navy opacity-20 blur-2xl"></div>
-                    <div class="relative z-10">
-                        <p class="text-xl font-serif leading-relaxed">
-                            数据支持一个明确结论：当前的问题不是市场机会不足，而是内部执行纪律不足。折扣失控、品类错配、客户优先级误判——这三个问题都有数据可查、可量化，也都有对应的管理解决方案。</p>
-                        <p class="text-xl font-serif mt-4 text-brand-pale">下一步需要的是 <span
-                                class="text-white font-bold border-b-2 border-brand-light pb-1">执行意志</span>，而不是更多分析。</p>
-                    </div>
-                </div>
-
-                <div
-                    class="mt-12 flex justify-between items-center text-sm text-slate-500 border-t border-slate-200 pt-6">
-                    <div><strong>报告完成人：</strong> AI 首席数据分析师</div>
-                    <div><strong>日期：</strong> 2026 年 3 月 3 日</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Global Footer & CTA -->
-    <footer class="border-t border-slate-200/60 bg-white/50 backdrop-blur-sm mt-auto relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 pt-16 pb-8">
-            <!-- CTA Card -->
-            <div
-                class="bg-gradient-to-br from-brand-tint to-white border border-brand-pale rounded-2xl p-8 md:p-10 shadow-lg shadow-brand-pale/20 mb-16 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
-                <!-- Decorative background elements -->
-                <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-light/10 rounded-full blur-3xl"></div>
-                <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-brand-blue/5 rounded-full blur-2xl"></div>
-
-                <div class="relative z-10 text-center md:text-left">
-                    <h3 class="text-2xl font-serif font-bold text-brand-navy mb-2">寻找属于您的数据破局方案？</h3>
-                    <p class="text-slate-600">联系我们的 CFA 持证分析师团队，获取为您企业量身定制的 AI 智能分析演示。</p>
-                </div>
-
-                <div class="relative z-10 shrink-0 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-6 md:mt-0">
-                    <a href="mailto:business@zwtj.site"
-                        class="group flex items-center justify-center gap-3 bg-brand-blue text-white px-8 py-4 rounded-xl font-medium shadow-[0_8px_30px_rgb(43,78,158,0.2)] hover:bg-brand-navy hover:shadow-[0_8px_30px_rgb(28,52,97,0.3)] hover:-translate-y-1 transition-all duration-300 border border-brand-light/30">
-                        <div class="bg-white/20 p-2 rounded-lg group-hover:bg-white/30 transition-colors">
-                            <i data-lucide="mail" class="w-5 h-5 text-white"></i>
-                        </div>
-                        <span class="text-lg tracking-wide">business@zwtj.site</span>
-                        <i data-lucide="arrow-right"
-                            class="w-4 h-4 ml-1 opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
-                    </a>
-
-                    <!-- 联系二维码 -->
-                    <div
-                        class="flex flex-col items-center gap-1.5 group bg-white/60 p-2 rounded-xl border border-brand-pale/50 backdrop-blur-sm">
-                        <img src="pic/二维码.png" alt="联系我们"
-                            class="w-16 h-16 rounded-md shadow-sm transition-transform duration-300 group-hover:scale-105">
-                        <span class="text-[10px] font-medium text-slate-500 tracking-wider">联系我们</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Footer Bottom -->
-            <div class="flex flex-col items-center justify-center border-t border-slate-200/60 pt-8 mt-4">
-                <div class="text-xs md:text-sm text-slate-500 text-center leading-relaxed">
-                    &copy; 2026 北京知微探界科技有限公司 保留所有权利
-                    <span class="hidden md:inline-block text-slate-300 mx-2">|</span>
-                    <br class="md:hidden" />
-                    <a href="https://beian.miit.gov.cn/" target="_blank"
-                        class="hover:text-brand-blue transition-colors">京ICP备2025141006号-1</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Mobile Bottom Navigation Bar (Bottom App Bar) -->
-    <div
-        class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 backdrop-blur-xl border-t border-slate-200/60 pb-safe pb-2 px-6 flex items-center justify-around shadow-[0_-4px_20px_rgba(28,52,97,0.06)] overflow-hidden">
-        <!-- Optional iOS Home indicator spacing: pb-safe relies on safe-area-inset in production -->
-
-        <button onclick="switchTab('core')" id="mob-btn-core"
-            class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-brand-blue group">
-            <i data-lucide="layers" class="w-5 h-5 transition-transform group-active:scale-90"></i>
-            <span class="text-[10px] font-medium tracking-wide">核心能力</span>
-            <div
-                class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-100">
-            </div>
-        </button>
-
-        <button onclick="switchTab('dashboard')" id="mob-btn-dashboard"
-            class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-slate-400 hover:text-slate-600 group">
-            <i data-lucide="layout-dashboard" class="w-5 h-5 transition-transform group-active:scale-90"></i>
-            <span class="text-[10px] font-medium tracking-wide">经营看板</span>
-            <div class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-0">
-            </div>
-        </button>
-
-        <button onclick="switchTab('report')" id="mob-btn-report"
-            class="mob-tab-btn flex-1 flex flex-col items-center justify-center py-3 gap-1 relative text-slate-400 hover:text-slate-600 group">
-            <i data-lucide="file-text" class="w-5 h-5 transition-transform group-active:scale-90"></i>
-            <span class="text-[10px] font-medium tracking-wide">战略报告</span>
-            <div class="absolute top-0 w-8 h-0.5 bg-brand-blue rounded-full active-indicator transition-all opacity-0">
-            </div>
-        </button>
-    </div>
-
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-
-        // Tab Switching Logic
-        function switchTab(tabId) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(el => {
-                el.classList.remove('active');
-            });
-            // Reset all Desktop tab buttons
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('bg-white', 'shadow-sm', 'text-brand-blue');
-                el.classList.add('text-slate-500');
-            });
-
-            // Reset all Mobile tab buttons & indicators
-            document.querySelectorAll('.mob-tab-btn').forEach(el => {
-                el.classList.remove('text-brand-blue');
-                el.classList.add('text-slate-400');
-                const indicator = el.querySelector('.active-indicator');
-                if (indicator) indicator.classList.replace('opacity-100', 'opacity-0');
-            });
-
-            // Show selected tab content
-            document.getElementById('tab-' + tabId).classList.add('active');
-
-            // Style selected Desktop tab button
-            const activeBtn = document.getElementById('btn-' + tabId);
-            if (activeBtn) {
-                activeBtn.classList.remove('text-slate-500', 'hover:text-brand-blue');
-                activeBtn.classList.add('bg-white', 'shadow-sm', 'text-brand-blue');
-            }
-
-            // Style selected Mobile tab button
-            const activeMobBtn = document.getElementById('mob-btn-' + tabId);
-            if (activeMobBtn) {
-                activeMobBtn.classList.remove('text-slate-400');
-                activeMobBtn.classList.add('text-brand-blue');
-                const activeIndicator = activeMobBtn.querySelector('.active-indicator');
-                if (activeIndicator) activeIndicator.classList.replace('opacity-0', 'opacity-100');
-            }
-
-            // On mobile, scroll to top whenever switching tab
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
+    <script src="shared.js"></script>
 </body>
 
 </html>

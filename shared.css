@@ -1,0 +1,196 @@
+:root {
+    /* zwtj-brand-skill Colors */
+    --brand-navy: #1C3461;
+    --brand-blue: #2B4E9E;
+    --brand-mid: #3D6BC4;
+    --brand-light: #6B96D8;
+    --brand-pale: #C8DAEF;
+    --brand-tint: #EBF2FB;
+    --n900: #1A2233;
+    --n700: #3D4E68;
+    --n500: #6B7A96;
+    --n300: #B8C2D4;
+    --n100: #EEF1F6;
+    --n50: #F7F9FC;
+    --white: #FFFFFF;
+    --success: #1E7A4E;
+    --warning: #A85C00;
+    --danger: #B02A2A;
+
+    --font-heading: 'Noto Serif SC', 'STSong', serif;
+    --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--n50);
+    color: var(--n900);
+    overflow-y: scroll;
+}
+
+.font-serif {
+    font-family: 'Noto Serif SC', serif;
+}
+
+/* Glassmorphism Styles */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(200, 218, 239, 0.4);
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 24px -6px rgba(28, 52, 97, 0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px -8px rgba(28, 52, 97, 0.12);
+    border-color: rgba(200, 218, 239, 0.8);
+}
+
+.glass-img-container {
+    border: 1px solid rgba(200, 218, 239, 0.4);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px -10px rgba(28, 52, 97, 0.1);
+}
+
+/* Markdown Report Styles */
+.report-content h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brand-navy);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--n100);
+    padding-bottom: 0.5rem;
+}
+
+.report-content h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--n900);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.report-content p,
+.report-content li {
+    margin-bottom: 0.75rem;
+    color: var(--n700);
+    line-height: 1.8;
+}
+
+.report-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+}
+
+.report-table th {
+    background-color: var(--brand-navy);
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 500;
+}
+
+.report-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--n100);
+    color: var(--n700);
+}
+
+.report-table tr:nth-child(even) td {
+    background-color: var(--brand-tint);
+}
+
+.callout {
+    background-color: var(--brand-tint);
+    border-left: 4px solid var(--brand-blue);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+}
+
+.callout-warning {
+    background-color: #FEF3E2;
+    border-left: 4px solid var(--warning);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+}
+
+strong {
+    color: var(--n900);
+    font-weight: 700;
+}
+
+.highlight-red {
+    color: var(--danger);
+    font-weight: 700;
+}
+
+.highlight-green {
+    color: var(--success);
+    font-weight: 700;
+}
+
+/* =========================================
+   Hero 入场动画（CSS keyframe，无需 JS）
+   ========================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-animate {
+    opacity: 0;
+    animation: fadeInUp 0.7s ease forwards;
+}
+
+/* =========================================
+   滚动触发入场动画（由 shared.js 控制）
+   ========================================= */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 交错延迟（可在元素上用 style="transition-delay: Xs" 覆盖） */
+.animate-on-scroll:nth-child(2) { transition-delay: 0.1s; }
+.animate-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+
+/* =========================================
+   glass-card 变体：禁用上浮 hover 效果
+   ========================================= */
+.glass-card.no-lift:hover {
+    transform: none;
+    box-shadow: 0 4px 24px -6px rgba(28, 52, 97, 0.06);
+}

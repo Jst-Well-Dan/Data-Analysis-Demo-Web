@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知微探界 · 品牌视觉与可视化标准</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --brand-navy: #1C3461;
+            --brand-blue: #2B4E9E;
+            --brand-mid: #3D6BC4;
+            --brand-light: #6B96D8;
+            --brand-pale: #C8DAEF;
+            --brand-tint: #EBF2FB;
+            --n900: #1A2233;
+            --n700: #3D4E68;
+            --n500: #6B7A96;
+            --n300: #B8C2D4;
+            --n100: #EEF1F6;
+            --n50: #F7F9FC;
+            --white: #FFFFFF;
+            --success: #1E7A4E;
+            --success-bg: #E6F4ED;
+            --warning: #A85C00;
+            --warning-bg: #FEF3E2;
+            --danger: #B02A2A;
+            --danger-bg: #FDEAEA;
+            --font-h: 'Noto Serif SC', 'Source Han Serif SC', serif;
+            --font-b: 'Noto Sans SC', 'PingFang SC', sans-serif;
+            --font-m: 'JetBrains Mono', 'Consolas', monospace;
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            --glass: rgba(255, 255, 255, 0.75);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-b);
+            background-color: var(--n50);
+            color: var(--n900);
+            line-height: 1.7;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            background: var(--white);
+            border-right: 1px solid var(--n100);
+            padding: 40px 24px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding: 60px 80px 100px;
+            max-width: 1200px;
+        }
+
+        .logo-area {
+            margin-bottom: 48px;
+        }
+
+        .logo-title {
+            font-family: var(--font-h);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--brand-navy);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--brand-blue);
+            border-radius: 50%;
+        }
+
+        .nav-group {
+            margin-bottom: 32px;
+        }
+
+        .nav-label {
+            font-family: var(--font-m);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--n500);
+            margin-bottom: 12px;
+            padding-left: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            color: var(--n700);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .nav-item i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-item:hover {
+            background: var(--brand-tint);
+            color: var(--brand-blue);
+        }
+
+        .nav-item.active {
+            background: var(--brand-blue);
+            color: var(--white);
+        }
+
+        .hero {
+            position: relative;
+            background: var(--brand-navy);
+            border-radius: var(--radius-md);
+            padding: 64px;
+            margin-bottom: 80px;
+            overflow: hidden;
+            color: var(--white);
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--brand-blue) 0%, transparent 70%);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-family: var(--font-h);
+            font-size: 42px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            color: var(--brand-pale);
+            font-size: 16px;
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        .section {
+            padding-top: 40px;
+            margin-bottom: 100px;
+            scroll-margin-top: 60px;
+        }
+
+        .sec-hd {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--n100);
+        }
+
+        .sec-num {
+            font-family: var(--font-m);
+            font-size: 14px;
+            color: var(--brand-light);
+        }
+
+        .sec-title {
+            font-family: var(--font-h);
+            font-size: 28px;
+            color: var(--brand-navy);
+            font-weight: 700;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--n100);
+            margin-bottom: 24px;
+        }
+
+        .card-sub {
+            font-family: var(--font-m);
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--n500);
+            margin-bottom: 20px;
+            letter-spacing: 0.1em;
+            border-left: 3px solid var(--brand-blue);
+            padding-left: 12px;
+        }
+
+        .grid-swatch {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px;
+        }
+
+        .swatch {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--n100);
+            transition: transform 0.2s;
+        }
+
+        .swatch:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .sw-c {
+            height: 80px;
+        }
+
+        .sw-b {
+            padding: 12px;
+        }
+
+        .sw-n {
+            font-weight: 600;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .sw-h {
+            font-family: var(--font-m);
+            font-size: 10px;
+            color: var(--n500);
+        }
+
+        .type-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .type-table tr {
+            border-bottom: 1px solid var(--n100);
+        }
+
+        .type-table td {
+            padding: 20px 0;
+            vertical-align: middle;
+        }
+
+        .type-meta {
+            width: 220px;
+            font-size: 12px;
+            color: var(--n500);
+        }
+
+        .meta-name {
+            font-weight: 700;
+            color: var(--n900);
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        .palette-row {
+            display: flex;
+            height: 60px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--n100);
+            margin-bottom: 12px;
+        }
+
+        .pal-cell {
+            flex: 1;
+            position: relative;
+            cursor: pointer;
+            transition: flex 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .pal-cell:hover {
+            flex: 2;
+        }
+
+        .pal-cell span {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-m);
+            font-size: 10px;
+            color: white;
+            opacity: 0;
+            transition: 0.2s;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .pal-cell:hover span {
+            opacity: 1;
+        }
+
+        .chart-preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .chart-box {
+            background: var(--n50);
+            border: 1px dashed var(--n300);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .demo-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: none;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-p {
+            background: var(--brand-blue);
+            color: white;
+        }
+
+        .btn-p:hover {
+            background: var(--brand-navy);
+            transform: scale(1.02);
+        }
+
+        .btn-s {
+            background: var(--brand-tint);
+            color: var(--brand-blue);
+        }
+
+        .btn-o {
+            background: transparent;
+            color: var(--brand-blue);
+            border: 1.5px solid var(--brand-pale);
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .tag-p {
+            background: var(--brand-tint);
+            color: var(--brand-blue);
+        }
+
+        .tag-ok {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .tag-err {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .data-table thead tr {
+            background: var(--brand-navy);
+            color: white;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--n100);
+        }
+
+        .data-table tbody tr:nth-child(even) {
+            background: var(--n50);
+        }
+
+        .code-block {
+            background: var(--n900);
+            color: #d4d4d4;
+            padding: 24px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-m);
+            font-size: 12px;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-block::after {
+            content: 'CSS';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 10px;
+            color: var(--n500);
+        }
+
+        .footer {
+            margin-top: 100px;
+            border-top: 1px solid var(--n100);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--n500);
+            font-family: var(--font-m);
+            font-size: 11px;
+        }
+
+        @media (max-width: 1000px) {
+            .sidebar {
+                width: 80px;
+                padding: 40px 10px;
+            }
+
+            .logo-title span,
+            .nav-item span,
+            .nav-label {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo-title">
+                <div class="logo-dot"></div><span>ZWTJ Brand</span>
+            </div>
+        </div>
+        <nav class="nav-group">
+            <div class="nav-label">Identity</div>
+            <a href="#colors" class="nav-item active"><i data-lucide="palette"></i><span>配色体系</span></a>
+            <a href="#typography" class="nav-item"><i data-lucide="type"></i><span>字体规范</span></a>
+        </nav>
+        <nav class="nav-group">
+            <div class="nav-label">Design</div>
+            <a href="#components" class="nav-item"><i data-lucide="layout"></i><span>UI 组件</span></a>
+            <a href="#visualization" class="nav-item"><i data-lucide="bar-chart-3"></i><span>数据可视化</span></a>
+        </nav>
+        <nav class="nav-group">
+            <div class="nav-label">Resources</div>
+            <a href="#implementation" class="nav-item"><i data-lucide="code"></i><span>快速集成</span></a>
+        </nav>
+        <div style="margin-top: auto; padding-top: 20px;">
+            <div class="nav-item" style="color: var(--n300); pointer-events: none;"><i data-lucide="info"></i><span>v1.2
+                    Standard</span></div>
+        </div>
+    </aside>
+    <main class="main-content">
+        <section class="hero">
+            <div class="hero-glow"></div>
+            <h1>知微探界 · 视觉统一规范</h1>
+            <p>整合品牌基因与数据智慧，为“知微探界”提供一致、专业且极富视觉冲击力的数字化表达方案。</p>
+        </section>
+        <section class="section" id="colors">
+            <div class="sec-hd"><span class="sec-num">01</span>
+                <h2 class="sec-title">配色体系 Color System</h2>
+            </div>
+            <div class="card">
+                <div class="card-sub">核心品牌色 · Primary Core</div>
+                <div class="grid-swatch">
+                    <div class="swatch">
+                        <div class="sw-c" style="background: #1C3461;"></div>
+                        <div class="sw-b">
+                            <div class="sw-n">Brand Navy</div>
+                            <div class="sw-h">#1C3461</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="sw-c" style="background: #2B4E9E;"></div>
+                        <div class="sw-b">
+                            <div class="sw-n">Brand Blue</div>
+                            <div class="sw-h">#2B4E9E</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="sw-c" style="background: #3D6BC4;"></div>
+                        <div class="sw-b">
+                            <div class="sw-n">Active Mid</div>
+                            <div class="sw-h">#3D6BC4</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="sw-c" style="background: #6B96D8;"></div>
+                        <div class="sw-b">
+                            <div class="sw-n">Soft Light</div>
+                            <div class="sw-h">#6B96D8</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="sw-c" style="background: #C8DAEF;"></div>
+                        <div class="sw-b">
+                            <div class="sw-n">Pale Border</div>
+                            <div class="sw-h">#C8DAEF</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="sw-c" style="background: #EBF2FB;"></div>
+                        <div class="sw-b">
+                            <div class="sw-n">Tint BG</div>
+                            <div class="sw-h">#EBF2FB</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <div class="card">
+                    <div class="card-sub">中性色 · Neutrals</div>
+                    <div class="grid-swatch" style="grid-template-columns: repeat(4, 1fr);">
+                        <div class="swatch">
+                            <div class="sw-c" style="height:40px; background: #1A2233;"></div>
+                            <div class="sw-b" style="padding:8px">
+                                <div class="sw-h">#1A2233</div>
+                            </div>
+                        </div>
+                        <div class="swatch">
+                            <div class="sw-c" style="height:40px; background: #6B7A96;"></div>
+                            <div class="sw-b" style="padding:8px">
+                                <div class="sw-h">#6B7A96</div>
+                            </div>
+                        </div>
+                        <div class="swatch">
+                            <div class="sw-c" style="height:40px; background: #EEF1F6;"></div>
+                            <div class="sw-b" style="padding:8px">
+                                <div class="sw-h">#EEF1F6</div>
+                            </div>
+                        </div>
+                        <div class="swatch">
+                            <div class="sw-c" style="height:40px; background: #FFFFFF; border-bottom: 1px solid #eee;">
+                            </div>
+                            <div class="sw-b" style="padding:8px">
+                                <div class="sw-h">#FFFFFF</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-sub">语义色 · Semantic</div>
+                    <div class="grid-swatch" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="swatch">
+                            <div class="sw-c" style="height:40px; background: #1E7A4E;"></div>
+                            <div class="sw-b" style="padding:8px">
+                                <div class="sw-n">Success</div>
+                            </div>
+                        </div>
+                        <div class="swatch">
+                            <div class="sw-c" style="height:40px; background: #A85C00;"></div>
+                            <div class="sw-b" style="padding:8px">
+                                <div class="sw-n">Warning</div>
+                            </div>
+                        </div>
+                        <div class="swatch">
+                            <div class="sw-c" style="height:40px; background: #B02A2A;"></div>
+                            <div class="sw-b" style="padding:8px">
+                                <div class="sw-n">Danger</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="typography">
+            <div class="sec-hd"><span class="sec-num">02</span>
+                <h2 class="sec-title">字体规范 Typography</h2>
+            </div>
+            <div class="card">
+                <table class="type-table">
+                    <tr>
+                        <td class="type-meta">
+                            <div class="meta-name">封面标题 Display</div>Noto Serif SC · 34px · Bold
+                        </td>
+                        <td
+                            style="font-family: var(--font-h); font-size: 34px; font-weight: 700; color: var(--brand-navy);">
+                            数据驱动业务增长</td>
+                    </tr>
+                    <tr>
+                        <td class="type-meta">
+                            <div class="meta-name">章节 H1</div>Noto Serif SC · 24px · Bold
+                        </td>
+                        <td style="font-family: var(--font-h); font-size: 24px; font-weight: 700;">1.0 财务状况核心综述</td>
+                    </tr>
+                    <tr>
+                        <td class="type-meta">
+                            <div class="meta-name">正文 Body</div>Noto Sans SC · 14px · Regular
+                        </td>
+                        <td style="font-family: var(--font-b); font-size: 14px; line-height: 1.8;">通过对 2023
+                            年度全渠道销售数据的深度回溯发现，由于供应链成本的显著上升导致整体利润率承压，本报告将通过多维交叉验证给出优化建议。</td>
+                    </tr>
+                    <tr>
+                        <td class="type-meta">
+                            <div class="meta-name">数据/代码 Mono</div>JetBrains Mono · 13px
+                        </td>
+                        <td style="font-family: var(--font-m); font-size: 13px; color: var(--brand-blue);">$1,452,890.32
+                            · GROWTH: +12.5%</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+        <section class="section" id="components">
+            <div class="sec-hd"><span class="sec-num">03</span>
+                <h2 class="sec-title">UI 组件库 Components</h2>
+            </div>
+            <div class="grid-swatch" style="grid-template-columns: 1fr 1fr; align-items: stretch;">
+                <div class="card">
+                    <div class="card-sub">交互按钮 · Interactive Buttons</div>
+                    <div class="demo-row">
+                        <button class="btn btn-p">主要操作</button>
+                        <button class="btn btn-s">辅助操作</button>
+                        <button class="btn btn-o">描边按钮</button>
+                    </div>
+                    <div class="card-sub" style="margin-top: 30px;">状态标签 · Status Badges</div>
+                    <div class="demo-row">
+                        <span class="tag tag-p">分析模块</span>
+                        <span class="tag tag-ok">正常运行</span>
+                        <span class="tag tag-err">风险预警</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-sub">数据示例 · Data Insights</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>分析维度</th>
+                                <th>洞察评分</th>
+                                <th>波动影响</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>用户生命周期</td>
+                                <td>8.8 / 10</td>
+                                <td style="color:var(--success); font-weight:600;">+ 12.4%</td>
+                            </tr>
+                            <tr>
+                                <td>流失风险预测</td>
+                                <td>4.2 / 10</td>
+                                <td style="color:var(--danger); font-weight:600;">- 3.1%</td>
+                            </tr>
+                            <tr>
+                                <td>市场情绪追踪</td>
+                                <td>7.5 / 10</td>
+                                <td style="color:var(--success); font-weight:600;">+ 5.8%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="visualization">
+            <div class="sec-hd"><span class="sec-num">04</span>
+                <h2 class="sec-title">数据可视化 Viz Standards</h2>
+            </div>
+            <div class="card">
+                <div class="card-sub">分类调色板 · Categorical (8-Colors)</div>
+                <div class="palette-row">
+                    <div class="pal-cell" style="background:#2B4E9E"><span>C1 #2B4E9E</span></div>
+                    <div class="pal-cell" style="background:#1E7A4E"><span>C2 #1E7A4E</span></div>
+                    <div class="pal-cell" style="background:#B45309"><span>C3 #B45309</span></div>
+                    <div class="pal-cell" style="background:#6B96D8"><span>C4 #6B96D8</span></div>
+                    <div class="pal-cell" style="background:#5E9E76"><span>C5 #5E9E76</span></div>
+                    <div class="pal-cell" style="background:#D4853A"><span>C6 #D4853A</span></div>
+                    <div class="pal-cell" style="background:#9B5EBF"><span>C7 #9B5EBF</span></div>
+                    <div class="pal-cell" style="background:#E05252"><span>C8 #E05252</span></div>
+                </div>
+            </div>
+            <div class="chart-preview-grid">
+                <div class="card">
+                    <div class="card-sub">趋势预测渐变 · Sequential</div>
+                    <div
+                        style="height:32px; background: linear-gradient(to right, #EBF2FB, #C8DAEF, #6B96D8, #2B4E9E, #1C3461); border-radius: 4px;">
+                    </div>
+                    <div class="chart-box" style="margin-top: 24px;">
+                        <div style="display: flex; gap: 10px; align-items: flex-end; height: 100px;">
+                            <div
+                                style="flex:1; height: 85%; background: var(--brand-blue); border-radius: 4px 4px 0 0;">
+                            </div>
+                            <div style="flex:1; height: 60%; background: var(--success); border-radius: 4px 4px 0 0;">
+                            </div>
+                            <div style="flex:1; height: 45%; background: var(--warning); border-radius: 4px 4px 0 0;">
+                            </div>
+                            <div
+                                style="flex:1; height: 35%; background: var(--brand-light); border-radius: 4px 4px 0 0;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-sub">风险偏离对比 · Diverging</div>
+                    <div
+                        style="height:32px; background: linear-gradient(to right, #B02A2A, #FDEAEA, #F5F5F5, #E6F4ED, #145235); border-radius: 4px;">
+                    </div>
+                    <div class="chart-box" style="margin-top: 24px; position: relative;">
+                        <div
+                            style="width: 100px; height: 100px; border-radius: 50%; background: conic-gradient(var(--brand-blue) 0% 40%, var(--success) 40% 70%, var(--warning) 70% 85%, var(--n300) 85% 100%); margin: auto; position: relative;">
+                            <div style="position: absolute; inset: 20px; background: var(--n50); border-radius: 50%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="implementation">
+            <div class="sec-hd"><span class="sec-num">05</span>
+                <h2 class="sec-title">快速集成 Implementation</h2>
+            </div>
+            <div class="card">
+                <div class="card-sub">CSS 变量全量配置模板</div>
+                <div class="code-block" style="white-space: pre-wrap; line-height: 1.6;">:root {
+                    /* 品牌色 */
+                    --brand-navy: #1C3461; --brand-blue: #2B4E9E; --brand-mid: #3D6BC4;
+                    --brand-light: #6B96D8; --brand-pale: #C8DAEF; --brand-tint: #EBF2FB;
+
+                    /* 中性色 */
+                    --n900: #1A2233; --n700: #3D4E68; --n500: #6B7A96;
+                    --n300: #B8C2D4; --n100: #EEF1F6; --n50: #F7F9FC; --white: #FFFFFF;
+
+                    /* 功能色 */
+                    --success: #1E7A4E; --success-bg: #E6F4ED;
+                    --warning: #A85C00; --warning-bg: #FEF3E2;
+                    --danger: #B02A2A; --danger-bg: #FDEAEA;
+
+                    /* 字体规范 */
+                    --font-heading: 'Noto Serif SC','STSong',serif;
+                    --font-body: 'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+                    --font-mono: 'JetBrains Mono','Consolas',monospace;
+                    }
+
+                    body { font-family: var(--font-body); background: var(--n50); color: var(--n900); }</div>
+            </div>
+        </section>
+        <footer class="footer">
+            <p>知微探界 · 视觉设计与数据规范标准文档</p>
+            <p style="margin-top: 8px; opacity: 0.5;">BEIJING ZHIWEI TANJIE TECHNOLOGY CO., LTD. © 2025</p>
+        </footer>
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

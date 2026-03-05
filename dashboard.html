@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经营看板 - 知微探界</title>
+    <meta name="description" content="知微探界 AI 自动生成的交互式经营看板——多维度实时透视，让数据结论主动找到管理层。">
+    <meta property="og:title" content="经营看板 - 知微探界">
+    <meta property="og:description" content="知微探界 AI 自动生成的交互式经营看板——多维度实时透视，让数据结论主动找到管理层。">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="pic/场景1.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232B4E9E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><polygon points='16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76'/></svg>">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind-config.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+</head>
+
+<body class="pt-16">
+
+    <!-- 经营看板 -->
+    <div class="pt-4 pb-16">
+        <div class="max-w-[1400px] mx-auto px-4 pb-6">
+            <div
+                class="bg-brand-tint text-brand-navy px-4 py-2 rounded-t-lg text-sm flex items-center gap-2 font-medium border border-brand-pale border-b-0">
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                自动生成的交互式经营看板
+            </div>
+            <div class="bg-white rounded-b-lg shadow-lg border border-slate-200 overflow-x-auto iframe-container h-[calc(100vh-140px)]"
+                style="-webkit-overflow-scrolling: touch;">
+                <!-- Using an iframe to render the dashboard file -->
+                <iframe src="superstore_dashboard.html" title="Superstore Dashboard"
+                    class="w-full h-full border-0 min-w-[1200px]"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+</body>
+
+</html>
